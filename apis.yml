@@ -1,0 +1,50 @@
+name: Country Calling Codes
+description: >-
+  Public read-only reference API for ITU E.164 country calling codes, phone number formatting, batch normalization,
+  comparison, dialing guidance, input rules, and calling windows. Ships a REST API, hosted MCP server, llms.txt, and
+  agent skill manifest simultaneously. No authentication required.
+url: https://raw.githubusercontent.com/api-evangelist/country-calling-codes/refs/heads/main/apis.yml
+created: '2026-09-08'
+modified: '2026-09-08'
+specificationVersion: '0.21'
+tags:
+  - data
+  - reference
+  - telecom
+  - phone
+  - openapi
+  - mcp
+apis:
+  - name: Country Calling Codes API
+    description: >-
+      Read-only JSON API for country calling code lookup, phone number formatting, analysis, batch normalization,
+      comparison, dialing guidance and capabilities. Includes a hosted Streamable HTTP MCP server, llms.txt, and agent
+      skill manifest.
+    humanURL: https://www.countrycalling.codes/developers
+    baseURL: https://www.countrycalling.codes
+    tags:
+      - data
+      - reference
+      - telecom
+      - phone
+      - openapi
+      - mcp
+    properties:
+      - type: OpenAPI
+        url: https://www.countrycalling.codes/api/calling-codes/openapi.json
+      - type: Documentation
+        url: https://www.countrycalling.codes/developers
+      - type: MCPServer
+        url: https://www.countrycalling.codes/api/mcp
+      - type: LLMsTxt
+        url: https://www.countrycalling.codes/llms.txt
+      - type: AgentSkill
+        url: https://www.countrycalling.codes/skill.json
+maintainers:
+  - FN: Kajdep
+    url: https://github.com/Kajdep/v0-countrycallingcodes
+generated:
+  by: apis.io/add
+  model: claude-opus-4-8
+  confidence: 97
+  at: '2026-09-08T12:26:26.861Z'
