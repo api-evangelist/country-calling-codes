@@ -1,0 +1,6 @@
+Contact: mailto:hello@countrycalling.codes
+Expires: 2027-03-11T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://www.countrycalling.codes/.well-known/security.txt
+Policy: https://www.countrycalling.codes/privacy
+Hiring: https://www.countrycalling.codes/contact

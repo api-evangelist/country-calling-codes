@@ -1,0 +1,12 @@
+generated: '2026-09-09'
+method: searched
+source: https://www.countrycalling.codes/skill.json
+skills:
+  - name: Country Calling Codes
+    file: country-calling-codes-skill.json
+    kind: provider-published skill manifest (schema_version 1.4, api_version 1.4.0)
+    note: >-
+      Saved verbatim from the provider's own /skill.json — a machine-readable skill
+      manifest wiring the guides, REST API, OpenAPI, hosted MCP server, MCP Registry
+      manifest, and llms.txt entry points together. Provider-authored; nothing here
+      was generated on their behalf.

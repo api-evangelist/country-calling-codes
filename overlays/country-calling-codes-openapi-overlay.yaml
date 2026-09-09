@@ -1,0 +1,29 @@
+# generated: 2026-09-09 | method: generated
+# source: derived from openapi/country-calling-codes-openapi.json + sibling artifacts in this repo
+overlay: 1.0.0
+info:
+  title: API Evangelist enrichment overlay for the Country Calling Codes API
+  version: 1.0.0
+extends: country-calling-codes-openapi.json
+actions:
+  - target: $.info
+    update:
+      x-apis-io-slug: country-calling-codes
+      x-agent-surfaces:
+        mcp: https://www.countrycalling.codes/api/mcp
+        mcp-registry-manifest: https://www.countrycalling.codes/server.json
+        llms-txt: https://www.countrycalling.codes/llms.txt
+        skill-manifest: https://www.countrycalling.codes/skill.json
+      x-artifacts:
+        tool-crosswalk: ../mcp/country-calling-codes-tool-crosswalk.yml
+        conventions: ../conventions/country-calling-codes-conventions.yml
+        error-catalog: ../errors/country-calling-codes-problem-types.yml
+        rate-limits: ../rate-limits/country-calling-codes-rate-limits.yml
+  - target: $.info
+    update:
+      x-write-surface: none
+      x-processing: ephemeral
+      x-domain-standard: ITU-T E.164
+  - target: $.paths['/api/calling-codes/status'].get
+    update:
+      x-status-endpoint: true

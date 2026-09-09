@@ -1,0 +1,65 @@
+generated: '2026-09-09'
+method: derived
+source: openapi/country-calling-codes-openapi.json components.schemas $ref graph (v1.4.0)
+entities:
+  - name: Country
+    description: >-
+      A country or territory: name, officialName, ISO codes (code alpha-2, code3
+      alpha-3), dialCode, region/subregion, capital, flag, trunkPrefix, areaCodes,
+      and an optional reviewed dialingGuide.
+    identifiers: [code, code3, dialCode]
+  - name: DialingGuide
+    description: >-
+      Editorially reviewed per-country dialing guidance — trunk prefix rule, leading
+      zero behavior, IDD prefixes, mobile/landline examples, carrier selection and
+      shared-plan notes — with review status and source citations.
+  - name: DialingExample
+    description: A worked example (national/international display, E.164 form) built from labeled DialingPart segments.
+  - name: DialingPart
+    description: One labeled segment of a dial string (value, label, meaning).
+  - name: FormattingException
+    description: A titled exception to the general formatting rule for a country.
+  - name: SourceReference
+    description: A citation (publisher, title, url, publishedAt, lastVerified) backing reviewed guidance.
+  - name: CallingCodesResponse / DirectLookupResponse
+    description: Lookup envelopes — meta + query/lookup echo + matched countries[].
+  - name: PhoneFormatRequest / PhoneFormatResponse
+    description: Ephemeral formatter input (phoneNumber + optional countryCode) and result with stated limitations.
+  - name: StatusResponse
+    description: Live service status — version, timestamp, dataset counts and canonical endpoint links.
+  - name: ErrorResponse
+    description: The error envelope (error.code/message/details[] + documentation URI).
+relationships:
+  - from: CallingCodesResponse
+    to: Country
+    kind: has_many
+    via: countries
+  - from: DirectLookupResponse
+    to: Country
+    kind: has_many
+    via: countries
+  - from: Country
+    to: DialingGuide
+    kind: has_one
+    via: dialingGuide
+  - from: DialingGuide
+    to: DialingExample
+    kind: has_many
+    via: mobile/landline examples
+  - from: DialingGuide
+    to: FormattingException
+    kind: has_many
+    via: exceptions
+  - from: DialingGuide
+    to: SourceReference
+    kind: has_many
+    via: sources
+  - from: DialingExample
+    to: DialingPart
+    kind: has_many
+    via: parts
+notes: >-
+  A small, self-contained reference model: Country is the root entity, keyed by ISO
+  3166 codes and dial codes; reviewed evidence (DialingGuide and its children) is
+  distinct from raw numbering metadata, and the provider labels which of the two
+  backs any given answer.

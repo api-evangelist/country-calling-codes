@@ -1,0 +1,34 @@
+generated: '2026-09-09'
+method: searched
+source: >-
+  https://www.countrycalling.codes/api/calling-codes/status (probed 2026-09-09) +
+  openapi/country-calling-codes-openapi.json + response headers on live calls.
+versioning:
+  scheme: semver, single unversioned surface
+  current: 1.4.0
+  signaling: >-
+    Every API response carries an X-API-Version header (observed 1.4.0), and the
+    OpenAPI info.version, MCP serverInfo.version, and skill.json api_version all
+    report the same number. Paths are not version-prefixed.
+  dataset_versioning: >-
+    Data is versioned separately from the API: the status and capabilities endpoints
+    report datasetVersion (observed guides-2026-09-08+metadata-1.13.12) and
+    numberingMetadataVersion (1.13.12), so consumers can pin which numbering
+    metadata a result was computed from.
+status:
+  endpoint: https://www.countrycalling.codes/api/calling-codes/status
+  kind: machine-readable JSON status endpoint (uncached)
+  observed: >-
+    200 with status: ok, service, version, timestamp, dataset counts (233 countries
+    and territories, 13 reviewed dialing guides, 245 numbering-metadata countries)
+    and canonical endpoint links (probed 2026-09-09).
+deprecation:
+  policy: none-published
+  deprecated_operations: []
+  note: >-
+    No deprecation or sunset policy is published, and no operation in the v1.4.0
+    OpenAPI is marked deprecated. No Deprecation/Sunset (RFC 8594) headers observed.
+sla: none-published
+changelog: >-
+  No public changelog page (/changelog 404s). Version movement is visible only
+  through the X-API-Version header and dataset version strings.

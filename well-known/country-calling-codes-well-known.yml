@@ -1,0 +1,38 @@
+generated: '2026-09-09'
+method: probed
+source: live probes of /.well-known/ on countrycalling.codes hosts
+summary: >-
+  One real document is served: an RFC 9116 security.txt on www.countrycalling.codes (saved
+  verbatim). Everything else misses — no OIDC/OAuth discovery, no api-catalog, no ai-plugin.json,
+  and no A2A agent card at either the canonical or legacy path. The apex host
+  countrycalling.codes 307-redirects every path to www. Note: the provider's MCP Registry
+  manifest lives at /server.json (site root, not /.well-known/) and is indexed under mcp/.
+pointer_basis: >-
+  WellKnown and SecurityTxt pointers are both earned by the 200 on
+  /.well-known/security.txt, which parses as a real RFC 9116 document (Contact, Expires,
+  Canonical, Policy). The 404s below are Next.js HTML not-found pages, recorded as misses.
+hosts:
+  - host: https://www.countrycalling.codes
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: country-calling-codes-security.txt
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: https://countrycalling.codes
+    documents:
+      - path: /
+        status: 307
+        note: apex redirects to https://www.countrycalling.codes/ for every path

@@ -1,0 +1,84 @@
+generated: '2026-09-09'
+method: derived
+source: >-
+  openapi/country-calling-codes-openapi.json (v1.4.0) crossed with the live tools/list
+  result in mcp/country-calling-codes-mcp-tools.json — tool names match OpenAPI
+  operationIds exactly, and both surfaces are versioned 1.4.0 by the provider.
+surfaces:
+  openapi:
+    file: openapi/country-calling-codes-openapi.json
+    url: https://www.countrycalling.codes/api/calling-codes/openapi.json
+    gated: false
+  mcp:
+    url: https://www.countrycalling.codes/api/mcp
+    transport: streamable-http
+    gated: false
+crosswalk:
+  - tool: lookup_country_calling_code
+    category: Calling codes
+    rest: [lookup_country_calling_code]
+    binding: 'GET /api/calling-codes'
+    confidence: high
+  - tool: format_international_phone_number
+    category: Phone formatting
+    rest: [format_international_phone_number]
+    binding: 'POST /api/phone/format'
+    confidence: high
+  - tool: get_phone_capabilities
+    category: Phone workflows
+    rest: [get_phone_capabilities]
+    binding: 'GET /api/capabilities'
+    confidence: high
+  - tool: analyze_phone_number
+    category: Phone workflows
+    rest: [analyze_phone_number]
+    binding: 'POST /api/phone/analyze'
+    confidence: high
+  - tool: get_dialing_instructions
+    category: Phone workflows
+    rest: [get_dialing_instructions]
+    binding: 'POST /api/dialing/instructions'
+    confidence: high
+  - tool: normalize_phone_numbers
+    category: Phone workflows
+    rest: [normalize_phone_numbers]
+    binding: 'POST /api/phone/batch'
+    confidence: high
+  - tool: compare_phone_numbers
+    category: Phone workflows
+    rest: [compare_phone_numbers]
+    binding: 'POST /api/phone/compare'
+    confidence: high
+  - tool: resolve_phone_region
+    category: Phone workflows
+    rest: [resolve_phone_region]
+    binding: 'POST /api/phone/region'
+    confidence: high
+  - tool: get_phone_input_rules
+    category: Phone workflows
+    rest: [get_phone_input_rules]
+    binding: 'GET /api/countries/{code}/phone-input'
+    confidence: high
+  - tool: diagnose_dialing_problem
+    category: Phone workflows
+    rest: [diagnose_dialing_problem]
+    binding: 'POST /api/phone/diagnose'
+    confidence: high
+  - tool: find_calling_windows
+    category: Phone workflows
+    rest: [find_calling_windows]
+    binding: 'POST /api/calling-windows'
+    confidence: high
+mcp_only: []
+rest_only:
+  - operationId: lookup_country_calling_code_direct
+    reason: >-
+      GET /api/calling-codes/{lookup} path-parameter variant; the MCP
+      lookup_country_calling_code tool covers the same lookups via its query schema.
+  - operationId: get_calling_codes_api_status
+    reason: 'GET /api/calling-codes/status is a service health/status surface, not exposed as a tool.'
+coverage:
+  tools: 11
+  tools_bound: 11
+  rest_operations: 13
+  rest_bound: 11

@@ -1,0 +1,25 @@
+generated: '2026-09-09'
+method: searched
+source: >-
+  https://www.countrycalling.codes/developers + live probes — /pricing returns 404
+  (2026-09-09), the API requires no key or signup, and /api/capabilities states no
+  per-client quota exists.
+plan_count: 1
+plans:
+  - name: Public
+    price: 0
+    currency: USD
+    billing_period: none
+    signup_required: false
+    api_key_required: false
+    included: >-
+      The entire surface: all 13 REST operations, the hosted MCP server, llms.txt,
+      and skill manifest, with no application-level quota.
+    limits: >-
+      Per-request only: 64 KiB bodies, 100-item batches, 64-char phone inputs,
+      31-day/8-participant calling windows; hosting-level 429 possible.
+notes: >-
+  There is no commercial tier and no pricing page — the whole service is a free,
+  anonymous public reference API. Recorded as one free plan rather than plan_count: 0
+  because the terms of access (free, no key, no quota) are genuinely published across
+  the developer docs, capabilities endpoint, and MCP Registry manifest.

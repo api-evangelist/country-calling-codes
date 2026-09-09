@@ -5,8 +5,9 @@ description: >-
   agent skill manifest simultaneously. No authentication required.
 url: https://raw.githubusercontent.com/api-evangelist/country-calling-codes/refs/heads/main/apis.yml
 created: '2026-09-08'
-modified: '2026-09-08'
+modified: '2026-09-09'
 specificationVersion: '0.21'
+image: https://www.countrycalling.codes/opengraph-image
 tags:
   - data
   - reference
@@ -22,6 +23,7 @@ apis:
       skill manifest.
     humanURL: https://www.countrycalling.codes/developers
     baseURL: https://www.countrycalling.codes
+    image: https://www.countrycalling.codes/opengraph-image
     tags:
       - data
       - reference
@@ -32,19 +34,74 @@ apis:
     properties:
       - type: OpenAPI
         url: https://www.countrycalling.codes/api/calling-codes/openapi.json
+      - type: OpenAPI
+        url: openapi/country-calling-codes-openapi.json
       - type: Documentation
+        url: https://www.countrycalling.codes/developers
+      - type: APIReference
         url: https://www.countrycalling.codes/developers
       - type: MCPServer
         url: https://www.countrycalling.codes/api/mcp
+      - type: MCPServer
+        url: mcp/country-calling-codes-mcp.yml
+      - type: ToolCrosswalk
+        url: mcp/country-calling-codes-tool-crosswalk.yml
       - type: LLMsTxt
         url: https://www.countrycalling.codes/llms.txt
+      - type: LLMsTxt
+        url: llms/country-calling-codes-llms.txt
       - type: AgentSkill
         url: https://www.countrycalling.codes/skill.json
+      - type: AgentSkill
+        url: skills/country-calling-codes-skill.json
+      - type: Authentication
+        url: authentication/country-calling-codes-authentication.yml
+      - type: Conventions
+        url: conventions/country-calling-codes-conventions.yml
+      - type: ErrorCatalog
+        url: errors/country-calling-codes-problem-types.yml
+      - type: Lifecycle
+        url: lifecycle/country-calling-codes-lifecycle.yml
+      - type: Conformance
+        url: conformance/country-calling-codes-conformance.yml
+      - type: RateLimits
+        url: rate-limits/country-calling-codes-rate-limits.yml
+      - type: Plans
+        url: plans/country-calling-codes-plans-pricing.yml
+      - type: DataModel
+        url: data-model/country-calling-codes-data-model.yml
+      - type: Overlay
+        url: overlays/country-calling-codes-openapi-overlay.yaml
+      - type: StatusPage
+        url: https://www.countrycalling.codes/api/calling-codes/status
 maintainers:
   - FN: Kajdep
-    url: https://github.com/Kajdep/v0-countrycallingcodes
+    email: hello@countrycalling.codes
+    url: https://www.countrycalling.codes
 generated:
   by: apis.io/add
   model: claude-opus-4-8
   confidence: 97
   at: '2026-09-08T12:26:26.861Z'
+common:
+- type: Website
+  url: https://www.countrycalling.codes
+- type: VulnerabilityDisclosure
+  url: security/country-calling-codes-vulnerability-disclosure.yml
+- type: Security
+  url: security/country-calling-codes-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/country-calling-codes-domain-security.yml
+- type: WellKnown
+  url: well-known/country-calling-codes-well-known.yml
+- type: SecurityTxt
+  url: well-known/country-calling-codes-security.txt
+- type: PrivacyPolicy
+  url: https://www.countrycalling.codes/privacy
+- type: Support
+  url: https://www.countrycalling.codes/contact
+x-enrichment:
+  date: '2026-09-09'
+  status: enriched
+  artifacts_added: 21
+  pass: local-v3

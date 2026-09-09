@@ -1,0 +1,60 @@
+generated: '2026-09-09'
+method: derived
+source: >-
+  openapi/country-calling-codes-openapi.json + live probes (response headers on
+  GET /api/calling-codes/US, GET /api/capabilities, 2026-09-09) + llms.txt +
+  https://www.countrycalling.codes/developers.
+auth:
+  style: none
+  detail: Fully open, no API key or OAuth; see authentication/country-calling-codes-authentication.yml.
+write_surface: >-
+  NONE. Every endpoint, including the POST workflow endpoints (/api/phone/format,
+  /api/phone/analyze, /api/phone/batch, /api/phone/compare, /api/phone/region,
+  /api/phone/diagnose, /api/dialing/instructions, /api/calling-windows), is a pure
+  ephemeral computation over static numbering data — the provider states
+  processing: ephemeral, responses are never cached server-side, and no request
+  creates, mutates, or deletes any resource. The MCP Registry manifest declares
+  readOnly: true.
+idempotency:
+  coverage: na
+  detail: >-
+    Not applicable — no write surface exists. The POST endpoints are naturally
+    idempotent computations with no state to replay-protect.
+reversibility: na  # no write surface; nothing an agent does here can need undoing
+dry_run_mode: na
+pagination:
+  style: limit-only
+  params: [limit]
+  detail: >-
+    Collection lookup (GET /api/calling-codes) takes a limit parameter; the full
+    dataset is small (233 countries/territories) and no cursor or offset paging exists.
+errors:
+  envelope: >-
+    Custom JSON ErrorResponse (error.code/error.message/error.details[] +
+    documentation URI); see errors/country-calling-codes-problem-types.yml. Not RFC 9457.
+  validation: 400 with per-field details[]; unknown or duplicated query parameters are rejected.
+rate_limits:
+  signaling: 429 with Retry-After when the hosting platform throttles; no app-level quota.
+  detail: see rate-limits/country-calling-codes-rate-limits.yml
+versioning:
+  style: X-API-Version response header + semver in every manifest; unversioned paths.
+  detail: see lifecycle/country-calling-codes-lifecycle.yml
+caching:
+  detail: >-
+    Metadata endpoints support conditional requests (ETag + If-None-Match, 304
+    responses); cache-control public on lookups; the status endpoint is uncached.
+cors:
+  detail: >-
+    access-control-allow-origin: * with GET, HEAD, OPTIONS — the read surface is
+    callable directly from browsers.
+request_limits:
+  body_bytes: 65536
+  batch_items: 100
+  phone_characters: 64
+  scheduling_days: 31
+  scheduling_participants: 8
+  source: GET /api/capabilities (probed 2026-09-09)
+tracing: no request-id convention documented or observed.
+field_conventions: >-
+  camelCase JSON throughout; responses wrap results with a meta block (apiVersion,
+  datasetVersion, source, documentation, standard) so every payload is self-describing.

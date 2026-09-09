@@ -1,0 +1,47 @@
+generated: '2026-09-09'
+method: probed
+status: published
+source: https://www.countrycalling.codes/api/mcp (live tools/list + initialize probes, 2026-09-09)
+manifest: mcp/country-calling-codes-server.json  # served verbatim from https://www.countrycalling.codes/server.json
+tools_file: mcp/country-calling-codes-mcp-tools.json  # verbatim tools/list result with full inputSchemas
+deployment:
+  mode: remote
+  endpoint: https://www.countrycalling.codes/api/mcp
+  auth: none
+  verified: probed
+server:
+  name: countrycalling-codes
+  version: 1.4.0
+  transport: streamable-http
+  protocolVersion: '2025-06-18'
+  capabilities:
+    tools: { listChanged: true }
+    resources: { listChanged: true }
+  registry:
+    id: io.github.Kajdep/countrycallingcodesmcp
+    listed: true
+    source: https://registry.modelcontextprotocol.io/v0/servers?search=countrycalling
+    note: >-
+      Official MCP Registry entry confirmed 2026-09-09; the registry copy is pinned at
+      version 1.0.0 while the live server and site manifest report 1.4.0.
+tools:
+  - lookup_country_calling_code
+  - format_international_phone_number
+  - get_phone_capabilities
+  - analyze_phone_number
+  - get_dialing_instructions
+  - normalize_phone_numbers
+  - compare_phone_numbers
+  - resolve_phone_region
+  - get_phone_input_rules
+  - diagnose_dialing_problem
+  - find_calling_windows
+resources:
+  - countrycalling://capabilities
+  - countrycalling://coverage
+  - countrycalling://countries/{code}/phone-input
+notes: >-
+  Anonymous initialize and tools/list both answer 200 over SSE with real schemas — the
+  server is reachable by any agent right now, with no key and no OAuth. Read-only:
+  every tool is a lookup or ephemeral computation over ITU E.164 numbering data; the
+  provider states processing is ephemeral and no operation verifies live subscribers.

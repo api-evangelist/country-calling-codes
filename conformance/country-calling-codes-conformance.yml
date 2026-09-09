@@ -1,0 +1,46 @@
+generated: '2026-09-09'
+method: derived
+source: >-
+  openapi/country-calling-codes-openapi.json + live probes of the API
+  (GET /api/calling-codes/US, GET /api/capabilities, 2026-09-09) + docs/llms.txt.
+conformance:
+  - id: itu-e164
+    conforms: true
+    domain_standard: true
+    evidence: >-
+      The contract itself declares the standard: the OpenAPI (v1.4.0) description and
+      schemas reference E.164 formatting throughout, and every live lookup response
+      carries meta.standard: "ITU-T E.164" (probed on GET /api/calling-codes/US,
+      2026-09-09). Per-country evidence in GET /api/capabilities cites ITU numbering
+      plan documents (itu.int/oth/... and T-REC-E.164) as sourceUrls.
+  - id: iso3166
+    conforms: true
+    evidence: >-
+      Country lookup accepts ISO 3166-1 alpha-2 and alpha-3 codes as first-class
+      parameters (documented in llms.txt and the OpenAPI code/lookup parameters);
+      countryCode inputs across MCP tool schemas are constrained to two-letter patterns.
+  - id: mcp-streamable-http
+    conforms: true
+    evidence: >-
+      Live initialize handshake at https://www.countrycalling.codes/api/mcp negotiated
+      MCP protocolVersion 2025-06-18 over Streamable HTTP/SSE (probed 2026-09-09);
+      server.json follows the official MCP Registry 2025-12-11 server schema and the
+      server is listed in registry.modelcontextprotocol.io.
+  - id: rfc9116-security-txt
+    conforms: true
+    evidence: >-
+      https://www.countrycalling.codes/.well-known/security.txt served 200 with
+      Contact, Expires, Canonical and Policy fields (probed 2026-09-09).
+  - id: rfc9457
+    conforms: false
+    evidence: >-
+      Errors use a custom JSON envelope (ErrorResponse with error.code/message +
+      documentation), not application/problem+json.
+  - id: oauth2
+    conforms: false
+    evidence: >-
+      Not applicable by design — the API declares no securitySchemes and the docs state
+      no authentication is required; no OAuth discovery documents are served.
+notes: >-
+  ITU-T E.164 is the domain standard for this market (telephone numbering), and this
+  contract declares it in its own responses rather than only in marketing prose.

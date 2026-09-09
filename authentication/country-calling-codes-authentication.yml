@@ -1,0 +1,19 @@
+generated: '2026-09-09'
+method: searched
+source: >-
+  openapi/country-calling-codes-openapi.json (empty security/securitySchemes) +
+  https://www.countrycalling.codes/developers + llms.txt + live anonymous probes
+  of the REST and MCP surfaces (2026-09-09).
+docs: https://www.countrycalling.codes/developers
+profile:
+  authentication: none
+  api_key_required: false
+  oauth: false
+  notes: >-
+    Deliberately open: the OpenAPI declares security: [] with no securitySchemes,
+    the info.description states "No authentication is required", and anonymous
+    probes of GET /api/calling-codes/US, GET /api/capabilities, and the MCP
+    endpoint (initialize + tools/list) all succeeded with no credentials. The MCP
+    Registry manifest declares authentication: none and readOnly: true. CORS
+    allows cross-origin GET from any origin (access-control-allow-origin: *).
+schemes: []

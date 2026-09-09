@@ -1,0 +1,552 @@
+{
+  "schema_version": "1.4",
+  "name": "Country Calling Codes",
+  "api_version": "1.4.0",
+  "capabilities_url": "https://www.countrycalling.codes/api/capabilities",
+  "name_for_model": "country_calling_codes",
+  "description": "Lookup international country calling codes and optionally retrieve reviewed, source-linked mobile/landline formatting examples. Static guidance does not verify live numbers.",
+  "homepage_url": "https://www.countrycalling.codes",
+  "llms_txt_url": "https://www.countrycalling.codes/llms.txt",
+  "llms_full_url": "https://www.countrycalling.codes/llms-full.md",
+  "mcp_registry_manifest_url": "https://www.countrycalling.codes/server.json",
+  "developer_documentation_url": "https://www.countrycalling.codes/developers",
+  "openapi_url": "https://www.countrycalling.codes/api/calling-codes/openapi.json",
+  "mcp_url": "https://www.countrycalling.codes/api/mcp",
+  "api_url": "https://www.countrycalling.codes/api/calling-codes",
+  "phone_format_api_url": "https://www.countrycalling.codes/api/phone/format",
+  "guides_url": "https://www.countrycalling.codes/guides",
+  "international_format_guide_url": "https://www.countrycalling.codes/guides/international-dialing-format",
+  "form_crm_sms_format_guide_url": "https://www.countrycalling.codes/guides/phone-number-format-for-forms-crm-sms",
+  "shared_country_codes_guide_url": "https://www.countrycalling.codes/guides/shared-country-codes",
+  "international_toll_free_guide_url": "https://www.countrycalling.codes/guides/international-toll-free-calling",
+  "call_troubleshooting_guide_url": "https://www.countrycalling.codes/guides/international-call-troubleshooting",
+  "roaming_cost_guide_url": "https://www.countrycalling.codes/guides/avoid-roaming-charges",
+  "travel_esim_comparison_guide_url": "https://www.countrycalling.codes/guides/travel-esim-vs-roaming-vs-local-sim",
+  "validation_guide_url": "https://www.countrycalling.codes/guides/phone-number-validation",
+  "formatting_errors_guide_url": "https://www.countrycalling.codes/guides/common-phone-number-formatting-errors",
+  "satellite_non_geographic_guide_url": "https://www.countrycalling.codes/guides/satellite-non-geographic-calling-codes",
+  "call_routing_portability_guide_url": "https://www.countrycalling.codes/guides/call-routing-number-portability",
+  "methodology_url": "https://www.countrycalling.codes/methodology",
+  "format_checker_url": "https://www.countrycalling.codes/tools/format-checker",
+  "preferred_access": [
+    "mcp",
+    "openapi",
+    "json_api",
+    "llms_full"
+  ],
+  "tools": [
+    {
+      "name": "get_phone_capabilities",
+      "description": "Discover supported countries, per-operation review coverage, evidence, dataset versions and request limits before choosing a phone workflow.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "countryCode": {
+            "type": "string",
+            "pattern": "^[a-zA-Z]{2}$"
+          },
+          "operation": {
+            "type": "string",
+            "enum": [
+              "get_phone_capabilities",
+              "analyze_phone_number",
+              "get_dialing_instructions",
+              "normalize_phone_numbers",
+              "compare_phone_numbers",
+              "resolve_phone_region",
+              "get_phone_input_rules",
+              "diagnose_dialing_problem",
+              "find_calling_windows"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "analyze_phone_number",
+      "description": "Analyze a number using versioned numbering metadata. National numbers need numberCountryCode; exit prefixes need originCountryCode. Reports uncertainty and rule evidence, never live subscriber status.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "phoneNumber": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "numberCountryCode": {
+            "type": "string",
+            "pattern": "^[a-zA-Z]{2}$"
+          },
+          "originCountryCode": {
+            "type": "string",
+            "pattern": "^[a-zA-Z]{2}$"
+          },
+          "detail": {
+            "type": "string",
+            "enum": [
+              "compact",
+              "full"
+            ],
+            "default": "compact"
+          }
+        },
+        "required": [
+          "phoneNumber"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "get_dialing_instructions",
+      "description": "Prepare origin-specific dialing guidance for reviewed countries. Provide origin and destination separately; no phone number returns safe placeholder patterns. Network-dependent results remain conditional.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "originCountryCode": {
+            "type": "string",
+            "pattern": "^[a-zA-Z]{2}$"
+          },
+          "destinationCountryCode": {
+            "type": "string",
+            "pattern": "^[a-zA-Z]{2}$"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "device": {
+            "type": "string",
+            "enum": [
+              "mobile",
+              "landline",
+              "unknown"
+            ],
+            "default": "unknown"
+          },
+          "carrierSelectionCode": {
+            "type": "string",
+            "pattern": "^[0-9]{2}$"
+          },
+          "detail": {
+            "type": "string",
+            "enum": [
+              "compact",
+              "full"
+            ],
+            "default": "compact"
+          }
+        },
+        "required": [
+          "originCountryCode",
+          "destinationCountryCode"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "normalize_phone_numbers",
+      "description": "Normalize up to 100 records with unique IDs. Invalid records produce individual errors. Optionally identify canonical duplicate candidates; no contacts are changed or stored.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64
+                },
+                "phoneNumber": {
+                  "description": "For a successful record, provide a non-empty phone string up to 64 characters. Malformed values return a per-record error."
+                },
+                "numberCountryCode": {
+                  "description": "Optional two-letter ISO country context for this number."
+                },
+                "originCountryCode": {
+                  "description": "Optional two-letter ISO origin for interpreting an exit prefix."
+                },
+                "detail": {
+                  "description": "compact (default) or full to expand source evidence."
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "additionalProperties": true
+            },
+            "minItems": 1,
+            "maxItems": 100
+          },
+          "findDuplicates": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "compare_phone_numbers",
+      "description": "Compare two numbers after analysis. Missing context produces indeterminate. Extensions must match unless extensionPolicy is explicitly ignore; equality does not establish ownership.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "left": {
+            "type": "object",
+            "properties": {
+              "phoneNumber": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64
+              },
+              "numberCountryCode": {
+                "type": "string",
+                "pattern": "^[a-zA-Z]{2}$"
+              },
+              "originCountryCode": {
+                "type": "string",
+                "pattern": "^[a-zA-Z]{2}$"
+              },
+              "detail": {
+                "type": "string",
+                "enum": [
+                  "compact",
+                  "full"
+                ],
+                "default": "compact"
+              }
+            },
+            "required": [
+              "phoneNumber"
+            ],
+            "additionalProperties": false
+          },
+          "right": {
+            "type": "object",
+            "properties": {
+              "phoneNumber": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64
+              },
+              "numberCountryCode": {
+                "type": "string",
+                "pattern": "^[a-zA-Z]{2}$"
+              },
+              "originCountryCode": {
+                "type": "string",
+                "pattern": "^[a-zA-Z]{2}$"
+              },
+              "detail": {
+                "type": "string",
+                "enum": [
+                  "compact",
+                  "full"
+                ],
+                "default": "compact"
+              }
+            },
+            "required": [
+              "phoneNumber"
+            ],
+            "additionalProperties": false
+          },
+          "extensionPolicy": {
+            "type": "string",
+            "enum": [
+              "exact",
+              "ignore"
+            ],
+            "default": "exact"
+          }
+        },
+        "required": [
+          "left",
+          "right"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "resolve_phone_region",
+      "description": "Resolve a phone number to metadata-backed country candidates or non-geographic numbering. Results are numbering assignments, not current location or carrier.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "phoneNumber": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "numberCountryCode": {
+            "type": "string",
+            "pattern": "^[a-zA-Z]{2}$"
+          },
+          "originCountryCode": {
+            "type": "string",
+            "pattern": "^[a-zA-Z]{2}$"
+          },
+          "detail": {
+            "type": "string",
+            "enum": [
+              "compact",
+              "full"
+            ],
+            "default": "compact"
+          }
+        },
+        "required": [
+          "phoneNumber"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "get_phone_input_rules",
+      "description": "Get reviewed display placeholders and trunk-prefix guidance. Examples are not validation masks. English fallback and unsupported editorial coverage are explicit.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "countryCode": {
+            "type": "string",
+            "pattern": "^[a-zA-Z]{2}$"
+          },
+          "locale": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 35,
+            "default": "en"
+          }
+        },
+        "required": [
+          "countryCode"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "diagnose_dialing_problem",
+      "description": "Explain formatting issues and propose reviewed prefix repairs for confirmation. Uses the same analyzer. Cannot determine why a network rejected a call.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "phoneNumber": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "numberCountryCode": {
+            "type": "string",
+            "pattern": "^[a-zA-Z]{2}$"
+          },
+          "originCountryCode": {
+            "type": "string",
+            "pattern": "^[a-zA-Z]{2}$"
+          },
+          "detail": {
+            "type": "string",
+            "enum": [
+              "compact",
+              "full"
+            ],
+            "default": "compact"
+          },
+          "destinationCountryCode": {
+            "type": "string",
+            "pattern": "^[a-zA-Z]{2}$"
+          },
+          "symptom": {
+            "type": "string",
+            "enum": [
+              "format-rejected",
+              "call-failed",
+              "uncertain-format"
+            ],
+            "default": "uncertain-format"
+          },
+          "device": {
+            "type": "string",
+            "enum": [
+              "mobile",
+              "landline",
+              "unknown"
+            ],
+            "default": "unknown"
+          }
+        },
+        "required": [
+          "phoneNumber"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "find_calling_windows",
+      "description": "Find overlapping working hours using explicit IANA time zones and dates. Handles overnight shifts and DST; never infers location from phone numbers or contacts participants.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "participants": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64
+                },
+                "timeZone": {
+                  "type": "string",
+                  "maxLength": 80
+                },
+                "workingHours": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "start": {
+                        "type": "string",
+                        "pattern": "^(?:[01][0-9]|2[0-3]):[0-5][0-9]$"
+                      },
+                      "end": {
+                        "type": "string",
+                        "pattern": "^(?:[01][0-9]|2[0-3]):[0-5][0-9]$"
+                      }
+                    },
+                    "required": [
+                      "start",
+                      "end"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1,
+                  "maxItems": 4
+                },
+                "weekdays": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 7
+                  },
+                  "minItems": 1,
+                  "maxItems": 7,
+                  "default": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "timeZone",
+                "workingHours"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 1,
+            "maxItems": 8
+          },
+          "startDate": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          },
+          "endDate": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          },
+          "durationMinutes": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1440
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20,
+            "default": 10
+          }
+        },
+        "required": [
+          "participants",
+          "startDate",
+          "endDate",
+          "durationMinutes"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "lookup_country_calling_code",
+      "description": "Look up countries and territories by free-text query, ISO alpha-2/alpha-3 code, country calling code, or region. Set includeExamples for reviewed formatting guidance.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "q": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "dialCode": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string",
+            "enum": [
+              "Africa",
+              "Americas",
+              "Asia",
+              "Europe",
+              "Oceania"
+            ]
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 250
+          },
+          "includeExamples": {
+            "type": "boolean",
+            "description": "Include reviewed safe patterns, transformation rules, primary sources, and verification dates."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "format_international_phone_number",
+      "description": "Ephemerally normalize an international number or apply reviewed country-specific rules to national-format input. Formatting only; no live carrier or subscriber check.",
+      "input_schema": {
+        "type": "object",
+        "required": [
+          "phoneNumber"
+        ],
+        "properties": {
+          "phoneNumber": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "countryCode": {
+            "type": "string",
+            "description": "Optional ISO 3166-1 alpha-2 country context."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  ]
+}

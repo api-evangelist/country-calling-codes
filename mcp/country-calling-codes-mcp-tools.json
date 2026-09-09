@@ -1,0 +1,2854 @@
+[
+  {
+    "name": "get_phone_capabilities",
+    "title": "Phone capabilities",
+    "description": "Discover supported countries, per-operation review coverage, evidence, dataset versions and request limits before choosing a phone workflow.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "countryCode": {
+          "type": "string",
+          "pattern": "^[a-zA-Z]{2}$"
+        },
+        "operation": {
+          "type": "string",
+          "enum": [
+            "get_phone_capabilities",
+            "analyze_phone_number",
+            "get_dialing_instructions",
+            "normalize_phone_numbers",
+            "compare_phone_numbers",
+            "resolve_phone_region",
+            "get_phone_input_rules",
+            "diagnose_dialing_problem",
+            "find_calling_windows"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "execution": {
+      "taskSupport": "forbidden"
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "type": "object",
+          "properties": {
+            "apiVersion": {
+              "type": "string"
+            },
+            "datasetVersion": {
+              "type": "string"
+            },
+            "numberingMetadataVersion": {
+              "type": "string"
+            },
+            "processing": {
+              "type": "string",
+              "const": "ephemeral"
+            },
+            "liveCarrierCheck": {
+              "type": "boolean",
+              "const": false
+            }
+          },
+          "required": [
+            "apiVersion",
+            "datasetVersion",
+            "numberingMetadataVersion",
+            "processing",
+            "liveCarrierCheck"
+          ],
+          "additionalProperties": false
+        },
+        "result": {
+          "type": "object",
+          "properties": {
+            "operations": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "get_phone_capabilities",
+                  "analyze_phone_number",
+                  "get_dialing_instructions",
+                  "normalize_phone_numbers",
+                  "compare_phone_numbers",
+                  "resolve_phone_region",
+                  "get_phone_input_rules",
+                  "diagnose_dialing_problem",
+                  "find_calling_windows"
+                ]
+              }
+            },
+            "limits": {
+              "type": "object",
+              "properties": {
+                "bodyBytes": {
+                  "type": "number"
+                },
+                "batchItems": {
+                  "type": "number"
+                },
+                "phoneCharacters": {
+                  "type": "number"
+                },
+                "schedulingDays": {
+                  "type": "number"
+                },
+                "schedulingParticipants": {
+                  "type": "number"
+                },
+                "rateLimit": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "bodyBytes",
+                "batchItems",
+                "phoneCharacters",
+                "schedulingDays",
+                "schedulingParticipants",
+                "rateLimit"
+              ],
+              "additionalProperties": false
+            },
+            "countries": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "countryCode": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "callingCode": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "supportedOperations": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "reviewStatus": {
+                    "type": "string",
+                    "enum": [
+                      "reviewed-guide-and-metadata",
+                      "numbering-metadata",
+                      "directory-only"
+                    ]
+                  },
+                  "lastVerified": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "evidenceIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "sourceUrls": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "limitations": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "countryCode",
+                  "name",
+                  "callingCode",
+                  "supportedOperations",
+                  "reviewStatus",
+                  "lastVerified",
+                  "evidenceIds",
+                  "sourceUrls",
+                  "limitations"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "basis": {
+                    "type": "string",
+                    "enum": [
+                      "reviewed-guide",
+                      "numbering-metadata"
+                    ]
+                  },
+                  "version": {
+                    "type": "string"
+                  },
+                  "lastVerified": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "sources": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "format": "uri"
+                        },
+                        "publisher": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "url",
+                        "publisher",
+                        "title"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "id",
+                  "basis",
+                  "version",
+                  "lastVerified",
+                  "sources"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "operations",
+            "limits",
+            "countries",
+            "evidence"
+          ],
+          "additionalProperties": false
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "meta",
+        "result",
+        "limitations"
+      ],
+      "additionalProperties": false,
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    }
+  },
+  {
+    "name": "analyze_phone_number",
+    "title": "Analyze phone number",
+    "description": "Analyze a number using versioned numbering metadata. National numbers need numberCountryCode; exit prefixes need originCountryCode. Reports uncertainty and rule evidence, never live subscriber status.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "phoneNumber": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "numberCountryCode": {
+          "type": "string",
+          "pattern": "^[a-zA-Z]{2}$"
+        },
+        "originCountryCode": {
+          "$ref": "#/properties/numberCountryCode"
+        },
+        "detail": {
+          "type": "string",
+          "enum": [
+            "compact",
+            "full"
+          ],
+          "default": "compact"
+        }
+      },
+      "required": [
+        "phoneNumber"
+      ],
+      "additionalProperties": false,
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "execution": {
+      "taskSupport": "forbidden"
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "type": "object",
+          "properties": {
+            "apiVersion": {
+              "type": "string"
+            },
+            "datasetVersion": {
+              "type": "string"
+            },
+            "numberingMetadataVersion": {
+              "type": "string"
+            },
+            "processing": {
+              "type": "string",
+              "const": "ephemeral"
+            },
+            "liveCarrierCheck": {
+              "type": "boolean",
+              "const": false
+            }
+          },
+          "required": [
+            "apiVersion",
+            "datasetVersion",
+            "numberingMetadataVersion",
+            "processing",
+            "liveCarrierCheck"
+          ],
+          "additionalProperties": false
+        },
+        "result": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "analyzed",
+                "needs-context",
+                "ambiguous",
+                "unsupported",
+                "invalid"
+              ]
+            },
+            "canonicalInternational": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "nationalNumber": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "nationalDisplay": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "internationalDisplay": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "extension": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "category": {
+              "type": "string",
+              "enum": [
+                "geographic",
+                "non-geographic",
+                "unknown"
+              ]
+            },
+            "countryCandidates": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "countryCode": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "matchedPrefix": {
+                    "type": "string"
+                  },
+                  "basis": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "countryCode",
+                  "name",
+                  "matchedPrefix",
+                  "basis"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "checks": {
+              "type": "object",
+              "properties": {
+                "parsing": {
+                  "type": "string",
+                  "enum": [
+                    "pass",
+                    "fail",
+                    "unknown",
+                    "not-applicable"
+                  ]
+                },
+                "length": {
+                  "$ref": "#/properties/result/properties/checks/properties/parsing"
+                },
+                "numberingPlan": {
+                  "$ref": "#/properties/result/properties/checks/properties/parsing"
+                }
+              },
+              "required": [
+                "parsing",
+                "length",
+                "numberingPlan"
+              ],
+              "additionalProperties": false
+            },
+            "reasonCodes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "requiredContext": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "transformations": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "rule": {
+                    "type": "string"
+                  },
+                  "action": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "rule",
+                  "action"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "evidenceIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "basis": {
+                    "type": "string",
+                    "enum": [
+                      "reviewed-guide",
+                      "numbering-metadata"
+                    ]
+                  },
+                  "version": {
+                    "type": "string"
+                  },
+                  "lastVerified": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "sources": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "format": "uri"
+                        },
+                        "publisher": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "url",
+                        "publisher",
+                        "title"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "id",
+                  "basis",
+                  "version",
+                  "lastVerified",
+                  "sources"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "status",
+            "canonicalInternational",
+            "nationalNumber",
+            "nationalDisplay",
+            "internationalDisplay",
+            "extension",
+            "category",
+            "countryCandidates",
+            "checks",
+            "reasonCodes",
+            "requiredContext",
+            "transformations",
+            "evidenceIds"
+          ],
+          "additionalProperties": false
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "meta",
+        "result",
+        "limitations"
+      ],
+      "additionalProperties": false,
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    }
+  },
+  {
+    "name": "get_dialing_instructions",
+    "title": "Dialing instructions",
+    "description": "Prepare origin-specific dialing guidance for reviewed countries. Provide origin and destination separately; no phone number returns safe placeholder patterns. Network-dependent results remain conditional.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "originCountryCode": {
+          "type": "string",
+          "pattern": "^[a-zA-Z]{2}$"
+        },
+        "destinationCountryCode": {
+          "$ref": "#/properties/originCountryCode"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "device": {
+          "type": "string",
+          "enum": [
+            "mobile",
+            "landline",
+            "unknown"
+          ],
+          "default": "unknown"
+        },
+        "carrierSelectionCode": {
+          "type": "string",
+          "pattern": "^[0-9]{2}$"
+        },
+        "detail": {
+          "type": "string",
+          "enum": [
+            "compact",
+            "full"
+          ],
+          "default": "compact"
+        }
+      },
+      "required": [
+        "originCountryCode",
+        "destinationCountryCode"
+      ],
+      "additionalProperties": false,
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "execution": {
+      "taskSupport": "forbidden"
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "type": "object",
+          "properties": {
+            "apiVersion": {
+              "type": "string"
+            },
+            "datasetVersion": {
+              "type": "string"
+            },
+            "numberingMetadataVersion": {
+              "type": "string"
+            },
+            "processing": {
+              "type": "string",
+              "const": "ephemeral"
+            },
+            "liveCarrierCheck": {
+              "type": "boolean",
+              "const": false
+            }
+          },
+          "required": [
+            "apiVersion",
+            "datasetVersion",
+            "numberingMetadataVersion",
+            "processing",
+            "liveCarrierCheck"
+          ],
+          "additionalProperties": false
+        },
+        "result": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "ready",
+                "guidance",
+                "needs-context",
+                "unsupported",
+                "invalid",
+                "ambiguous"
+              ]
+            },
+            "route": {
+              "type": "string",
+              "enum": [
+                "domestic",
+                "international",
+                "shared-plan"
+              ]
+            },
+            "canonicalInternational": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "recommendedDisplay": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "dialString": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "pattern": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "steps": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "label",
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "extensionInstructions": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "reasonCodes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "requiredContext": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "notes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "basis": {
+                    "type": "string",
+                    "enum": [
+                      "reviewed-guide",
+                      "numbering-metadata"
+                    ]
+                  },
+                  "version": {
+                    "type": "string"
+                  },
+                  "lastVerified": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "sources": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "format": "uri"
+                        },
+                        "publisher": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "url",
+                        "publisher",
+                        "title"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "id",
+                  "basis",
+                  "version",
+                  "lastVerified",
+                  "sources"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "status",
+            "route",
+            "canonicalInternational",
+            "recommendedDisplay",
+            "dialString",
+            "pattern",
+            "steps",
+            "extensionInstructions",
+            "reasonCodes",
+            "requiredContext",
+            "notes",
+            "evidence"
+          ],
+          "additionalProperties": false
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "meta",
+        "result",
+        "limitations"
+      ],
+      "additionalProperties": false,
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    }
+  },
+  {
+    "name": "normalize_phone_numbers",
+    "title": "Normalize phone batch",
+    "description": "Normalize up to 100 records with unique IDs. Invalid records produce individual errors. Optionally identify canonical duplicate candidates; no contacts are changed or stored.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "execution": {
+      "taskSupport": "forbidden"
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "type": "object",
+          "properties": {
+            "apiVersion": {
+              "type": "string"
+            },
+            "datasetVersion": {
+              "type": "string"
+            },
+            "numberingMetadataVersion": {
+              "type": "string"
+            },
+            "processing": {
+              "type": "string",
+              "const": "ephemeral"
+            },
+            "liveCarrierCheck": {
+              "type": "boolean",
+              "const": false
+            }
+          },
+          "required": [
+            "apiVersion",
+            "datasetVersion",
+            "numberingMetadataVersion",
+            "processing",
+            "liveCarrierCheck"
+          ],
+          "additionalProperties": false
+        },
+        "result": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "result": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "analyzed",
+                          "needs-context",
+                          "ambiguous",
+                          "unsupported",
+                          "invalid"
+                        ]
+                      },
+                      "canonicalInternational": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "nationalNumber": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "nationalDisplay": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "internationalDisplay": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "extension": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "category": {
+                        "type": "string",
+                        "enum": [
+                          "geographic",
+                          "non-geographic",
+                          "unknown"
+                        ]
+                      },
+                      "countryCandidates": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "countryCode": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "matchedPrefix": {
+                              "type": "string"
+                            },
+                            "basis": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "countryCode",
+                            "name",
+                            "matchedPrefix",
+                            "basis"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "checks": {
+                        "type": "object",
+                        "properties": {
+                          "parsing": {
+                            "type": "string",
+                            "enum": [
+                              "pass",
+                              "fail",
+                              "unknown",
+                              "not-applicable"
+                            ]
+                          },
+                          "length": {
+                            "$ref": "#/properties/result/properties/items/items/properties/result/properties/checks/properties/parsing"
+                          },
+                          "numberingPlan": {
+                            "$ref": "#/properties/result/properties/items/items/properties/result/properties/checks/properties/parsing"
+                          }
+                        },
+                        "required": [
+                          "parsing",
+                          "length",
+                          "numberingPlan"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "reasonCodes": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "requiredContext": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "transformations": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "rule": {
+                              "type": "string"
+                            },
+                            "action": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "rule",
+                            "action"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "evidenceIds": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "evidence": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "basis": {
+                              "type": "string",
+                              "enum": [
+                                "reviewed-guide",
+                                "numbering-metadata"
+                              ]
+                            },
+                            "version": {
+                              "type": "string"
+                            },
+                            "lastVerified": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "sources": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "url": {
+                                    "type": "string",
+                                    "format": "uri"
+                                  },
+                                  "publisher": {
+                                    "type": "string"
+                                  },
+                                  "title": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "url",
+                                  "publisher",
+                                  "title"
+                                ],
+                                "additionalProperties": false
+                              }
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "basis",
+                            "version",
+                            "lastVerified",
+                            "sources"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "status",
+                      "canonicalInternational",
+                      "nationalNumber",
+                      "nationalDisplay",
+                      "internationalDisplay",
+                      "extension",
+                      "category",
+                      "countryCandidates",
+                      "checks",
+                      "reasonCodes",
+                      "requiredContext",
+                      "transformations",
+                      "evidenceIds"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      },
+                      "fields": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "message"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "id"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "counts": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "number"
+                },
+                "analyzed": {
+                  "type": "number"
+                },
+                "ambiguous": {
+                  "type": "number"
+                },
+                "needsContext": {
+                  "type": "number"
+                },
+                "unsupported": {
+                  "type": "number"
+                },
+                "invalid": {
+                  "type": "number"
+                },
+                "errors": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "total",
+                "analyzed",
+                "ambiguous",
+                "needsContext",
+                "unsupported",
+                "invalid",
+                "errors"
+              ],
+              "additionalProperties": false
+            },
+            "duplicateGroups": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "itemIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "extensionsDiffer": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "itemIds",
+                  "extensionsDiffer"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "items",
+            "counts",
+            "duplicateGroups"
+          ],
+          "additionalProperties": false
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "meta",
+        "result",
+        "limitations"
+      ],
+      "additionalProperties": false,
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    }
+  },
+  {
+    "name": "compare_phone_numbers",
+    "title": "Compare phone numbers",
+    "description": "Compare two numbers after analysis. Missing context produces indeterminate. Extensions must match unless extensionPolicy is explicitly ignore; equality does not establish ownership.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "left": {
+          "type": "object",
+          "properties": {
+            "phoneNumber": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            },
+            "numberCountryCode": {
+              "type": "string",
+              "pattern": "^[a-zA-Z]{2}$"
+            },
+            "originCountryCode": {
+              "$ref": "#/properties/left/properties/numberCountryCode"
+            },
+            "detail": {
+              "type": "string",
+              "enum": [
+                "compact",
+                "full"
+              ],
+              "default": "compact"
+            }
+          },
+          "required": [
+            "phoneNumber"
+          ],
+          "additionalProperties": false
+        },
+        "right": {
+          "$ref": "#/properties/left"
+        },
+        "extensionPolicy": {
+          "type": "string",
+          "enum": [
+            "exact",
+            "ignore"
+          ],
+          "default": "exact"
+        }
+      },
+      "required": [
+        "left",
+        "right"
+      ],
+      "additionalProperties": false,
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "execution": {
+      "taskSupport": "forbidden"
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "type": "object",
+          "properties": {
+            "apiVersion": {
+              "type": "string"
+            },
+            "datasetVersion": {
+              "type": "string"
+            },
+            "numberingMetadataVersion": {
+              "type": "string"
+            },
+            "processing": {
+              "type": "string",
+              "const": "ephemeral"
+            },
+            "liveCarrierCheck": {
+              "type": "boolean",
+              "const": false
+            }
+          },
+          "required": [
+            "apiVersion",
+            "datasetVersion",
+            "numberingMetadataVersion",
+            "processing",
+            "liveCarrierCheck"
+          ],
+          "additionalProperties": false
+        },
+        "result": {
+          "type": "object",
+          "properties": {
+            "match": {
+              "type": "string",
+              "enum": [
+                "same",
+                "different",
+                "indeterminate"
+              ]
+            },
+            "baseNumberMatch": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "extensionMatch": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "reasonCodes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "left": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "analyzed",
+                    "needs-context",
+                    "ambiguous",
+                    "unsupported",
+                    "invalid"
+                  ]
+                },
+                "canonicalInternational": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "nationalNumber": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "nationalDisplay": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "internationalDisplay": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "extension": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "category": {
+                  "type": "string",
+                  "enum": [
+                    "geographic",
+                    "non-geographic",
+                    "unknown"
+                  ]
+                },
+                "countryCandidates": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "countryCode": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "matchedPrefix": {
+                        "type": "string"
+                      },
+                      "basis": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "countryCode",
+                      "name",
+                      "matchedPrefix",
+                      "basis"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "checks": {
+                  "type": "object",
+                  "properties": {
+                    "parsing": {
+                      "type": "string",
+                      "enum": [
+                        "pass",
+                        "fail",
+                        "unknown",
+                        "not-applicable"
+                      ]
+                    },
+                    "length": {
+                      "$ref": "#/properties/result/properties/left/properties/checks/properties/parsing"
+                    },
+                    "numberingPlan": {
+                      "$ref": "#/properties/result/properties/left/properties/checks/properties/parsing"
+                    }
+                  },
+                  "required": [
+                    "parsing",
+                    "length",
+                    "numberingPlan"
+                  ],
+                  "additionalProperties": false
+                },
+                "reasonCodes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "requiredContext": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "transformations": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "rule": {
+                        "type": "string"
+                      },
+                      "action": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "rule",
+                      "action"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "evidenceIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "evidence": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "basis": {
+                        "type": "string",
+                        "enum": [
+                          "reviewed-guide",
+                          "numbering-metadata"
+                        ]
+                      },
+                      "version": {
+                        "type": "string"
+                      },
+                      "lastVerified": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "sources": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "url": {
+                              "type": "string",
+                              "format": "uri"
+                            },
+                            "publisher": {
+                              "type": "string"
+                            },
+                            "title": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "url",
+                            "publisher",
+                            "title"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "basis",
+                      "version",
+                      "lastVerified",
+                      "sources"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "status",
+                "canonicalInternational",
+                "nationalNumber",
+                "nationalDisplay",
+                "internationalDisplay",
+                "extension",
+                "category",
+                "countryCandidates",
+                "checks",
+                "reasonCodes",
+                "requiredContext",
+                "transformations",
+                "evidenceIds"
+              ],
+              "additionalProperties": false
+            },
+            "right": {
+              "$ref": "#/properties/result/properties/left"
+            }
+          },
+          "required": [
+            "match",
+            "baseNumberMatch",
+            "extensionMatch",
+            "reasonCodes",
+            "left",
+            "right"
+          ],
+          "additionalProperties": false
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "meta",
+        "result",
+        "limitations"
+      ],
+      "additionalProperties": false,
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    }
+  },
+  {
+    "name": "resolve_phone_region",
+    "title": "Resolve phone region",
+    "description": "Resolve a phone number to metadata-backed country candidates or non-geographic numbering. Results are numbering assignments, not current location or carrier.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "phoneNumber": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "numberCountryCode": {
+          "type": "string",
+          "pattern": "^[a-zA-Z]{2}$"
+        },
+        "originCountryCode": {
+          "$ref": "#/properties/numberCountryCode"
+        },
+        "detail": {
+          "type": "string",
+          "enum": [
+            "compact",
+            "full"
+          ],
+          "default": "compact"
+        }
+      },
+      "required": [
+        "phoneNumber"
+      ],
+      "additionalProperties": false,
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "execution": {
+      "taskSupport": "forbidden"
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "type": "object",
+          "properties": {
+            "apiVersion": {
+              "type": "string"
+            },
+            "datasetVersion": {
+              "type": "string"
+            },
+            "numberingMetadataVersion": {
+              "type": "string"
+            },
+            "processing": {
+              "type": "string",
+              "const": "ephemeral"
+            },
+            "liveCarrierCheck": {
+              "type": "boolean",
+              "const": false
+            }
+          },
+          "required": [
+            "apiVersion",
+            "datasetVersion",
+            "numberingMetadataVersion",
+            "processing",
+            "liveCarrierCheck"
+          ],
+          "additionalProperties": false
+        },
+        "result": {
+          "type": "object",
+          "properties": {
+            "analysis": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "analyzed",
+                    "needs-context",
+                    "ambiguous",
+                    "unsupported",
+                    "invalid"
+                  ]
+                },
+                "canonicalInternational": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "nationalNumber": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "nationalDisplay": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "internationalDisplay": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "extension": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "category": {
+                  "type": "string",
+                  "enum": [
+                    "geographic",
+                    "non-geographic",
+                    "unknown"
+                  ]
+                },
+                "countryCandidates": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "countryCode": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "matchedPrefix": {
+                        "type": "string"
+                      },
+                      "basis": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "countryCode",
+                      "name",
+                      "matchedPrefix",
+                      "basis"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "checks": {
+                  "type": "object",
+                  "properties": {
+                    "parsing": {
+                      "type": "string",
+                      "enum": [
+                        "pass",
+                        "fail",
+                        "unknown",
+                        "not-applicable"
+                      ]
+                    },
+                    "length": {
+                      "$ref": "#/properties/result/properties/analysis/properties/checks/properties/parsing"
+                    },
+                    "numberingPlan": {
+                      "$ref": "#/properties/result/properties/analysis/properties/checks/properties/parsing"
+                    }
+                  },
+                  "required": [
+                    "parsing",
+                    "length",
+                    "numberingPlan"
+                  ],
+                  "additionalProperties": false
+                },
+                "reasonCodes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "requiredContext": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "transformations": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "rule": {
+                        "type": "string"
+                      },
+                      "action": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "rule",
+                      "action"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "evidenceIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "evidence": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "basis": {
+                        "type": "string",
+                        "enum": [
+                          "reviewed-guide",
+                          "numbering-metadata"
+                        ]
+                      },
+                      "version": {
+                        "type": "string"
+                      },
+                      "lastVerified": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "sources": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "url": {
+                              "type": "string",
+                              "format": "uri"
+                            },
+                            "publisher": {
+                              "type": "string"
+                            },
+                            "title": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "url",
+                            "publisher",
+                            "title"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "basis",
+                      "version",
+                      "lastVerified",
+                      "sources"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "status",
+                "canonicalInternational",
+                "nationalNumber",
+                "nationalDisplay",
+                "internationalDisplay",
+                "extension",
+                "category",
+                "countryCandidates",
+                "checks",
+                "reasonCodes",
+                "requiredContext",
+                "transformations",
+                "evidenceIds"
+              ],
+              "additionalProperties": false
+            },
+            "metadataEvidence": {
+              "$ref": "#/properties/result/properties/analysis/properties/evidence/items"
+            },
+            "resolution": {
+              "type": "string",
+              "enum": [
+                "resolved",
+                "ambiguous",
+                "non-geographic",
+                "unresolved"
+              ]
+            }
+          },
+          "required": [
+            "analysis",
+            "metadataEvidence",
+            "resolution"
+          ],
+          "additionalProperties": false
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "meta",
+        "result",
+        "limitations"
+      ],
+      "additionalProperties": false,
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    }
+  },
+  {
+    "name": "get_phone_input_rules",
+    "title": "Phone input guidance",
+    "description": "Get reviewed display placeholders and trunk-prefix guidance. Examples are not validation masks. English fallback and unsupported editorial coverage are explicit.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "countryCode": {
+          "type": "string",
+          "pattern": "^[a-zA-Z]{2}$"
+        },
+        "locale": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 35,
+          "default": "en"
+        }
+      },
+      "required": [
+        "countryCode"
+      ],
+      "additionalProperties": false,
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "execution": {
+      "taskSupport": "forbidden"
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "type": "object",
+          "properties": {
+            "apiVersion": {
+              "type": "string"
+            },
+            "datasetVersion": {
+              "type": "string"
+            },
+            "numberingMetadataVersion": {
+              "type": "string"
+            },
+            "processing": {
+              "type": "string",
+              "const": "ephemeral"
+            },
+            "liveCarrierCheck": {
+              "type": "boolean",
+              "const": false
+            }
+          },
+          "required": [
+            "apiVersion",
+            "datasetVersion",
+            "numberingMetadataVersion",
+            "processing",
+            "liveCarrierCheck"
+          ],
+          "additionalProperties": false
+        },
+        "result": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "supported",
+                "unsupported"
+              ]
+            },
+            "countryCode": {
+              "type": "string"
+            },
+            "locale": {
+              "type": "string"
+            },
+            "requestedLocale": {
+              "type": "string"
+            },
+            "fallback": {
+              "type": "boolean"
+            },
+            "callingCode": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "nationalLengths": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "patterns": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string"
+                  },
+                  "national": {
+                    "type": "string"
+                  },
+                  "international": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "kind",
+                  "national",
+                  "international"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "trunkPrefixRule": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "extensionSupported": {
+              "type": "boolean"
+            },
+            "hints": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "basis": {
+                    "type": "string",
+                    "enum": [
+                      "reviewed-guide",
+                      "numbering-metadata"
+                    ]
+                  },
+                  "version": {
+                    "type": "string"
+                  },
+                  "lastVerified": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "sources": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "format": "uri"
+                        },
+                        "publisher": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "url",
+                        "publisher",
+                        "title"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "id",
+                  "basis",
+                  "version",
+                  "lastVerified",
+                  "sources"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "status",
+            "countryCode",
+            "locale",
+            "requestedLocale",
+            "fallback",
+            "callingCode",
+            "nationalLengths",
+            "patterns",
+            "trunkPrefixRule",
+            "extensionSupported",
+            "hints",
+            "evidence"
+          ],
+          "additionalProperties": false
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "meta",
+        "result",
+        "limitations"
+      ],
+      "additionalProperties": false,
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    }
+  },
+  {
+    "name": "diagnose_dialing_problem",
+    "title": "Diagnose dialing format",
+    "description": "Explain formatting issues and propose reviewed prefix repairs for confirmation. Uses the same analyzer. Cannot determine why a network rejected a call.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "phoneNumber": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "numberCountryCode": {
+          "type": "string",
+          "pattern": "^[a-zA-Z]{2}$"
+        },
+        "originCountryCode": {
+          "$ref": "#/properties/numberCountryCode"
+        },
+        "detail": {
+          "type": "string",
+          "enum": [
+            "compact",
+            "full"
+          ],
+          "default": "compact"
+        },
+        "destinationCountryCode": {
+          "$ref": "#/properties/numberCountryCode"
+        },
+        "symptom": {
+          "type": "string",
+          "enum": [
+            "format-rejected",
+            "call-failed",
+            "uncertain-format"
+          ],
+          "default": "uncertain-format"
+        },
+        "device": {
+          "type": "string",
+          "enum": [
+            "mobile",
+            "landline",
+            "unknown"
+          ],
+          "default": "unknown"
+        }
+      },
+      "required": [
+        "phoneNumber"
+      ],
+      "additionalProperties": false,
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "execution": {
+      "taskSupport": "forbidden"
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "type": "object",
+          "properties": {
+            "apiVersion": {
+              "type": "string"
+            },
+            "datasetVersion": {
+              "type": "string"
+            },
+            "numberingMetadataVersion": {
+              "type": "string"
+            },
+            "processing": {
+              "type": "string",
+              "const": "ephemeral"
+            },
+            "liveCarrierCheck": {
+              "type": "boolean",
+              "const": false
+            }
+          },
+          "required": [
+            "apiVersion",
+            "datasetVersion",
+            "numberingMetadataVersion",
+            "processing",
+            "liveCarrierCheck"
+          ],
+          "additionalProperties": false
+        },
+        "result": {
+          "type": "object",
+          "properties": {
+            "analysis": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "analyzed",
+                    "needs-context",
+                    "ambiguous",
+                    "unsupported",
+                    "invalid"
+                  ]
+                },
+                "canonicalInternational": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "nationalNumber": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "nationalDisplay": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "internationalDisplay": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "extension": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "category": {
+                  "type": "string",
+                  "enum": [
+                    "geographic",
+                    "non-geographic",
+                    "unknown"
+                  ]
+                },
+                "countryCandidates": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "countryCode": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "matchedPrefix": {
+                        "type": "string"
+                      },
+                      "basis": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "countryCode",
+                      "name",
+                      "matchedPrefix",
+                      "basis"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "checks": {
+                  "type": "object",
+                  "properties": {
+                    "parsing": {
+                      "type": "string",
+                      "enum": [
+                        "pass",
+                        "fail",
+                        "unknown",
+                        "not-applicable"
+                      ]
+                    },
+                    "length": {
+                      "$ref": "#/properties/result/properties/analysis/properties/checks/properties/parsing"
+                    },
+                    "numberingPlan": {
+                      "$ref": "#/properties/result/properties/analysis/properties/checks/properties/parsing"
+                    }
+                  },
+                  "required": [
+                    "parsing",
+                    "length",
+                    "numberingPlan"
+                  ],
+                  "additionalProperties": false
+                },
+                "reasonCodes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "requiredContext": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "transformations": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "rule": {
+                        "type": "string"
+                      },
+                      "action": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "rule",
+                      "action"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "evidenceIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "evidence": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "basis": {
+                        "type": "string",
+                        "enum": [
+                          "reviewed-guide",
+                          "numbering-metadata"
+                        ]
+                      },
+                      "version": {
+                        "type": "string"
+                      },
+                      "lastVerified": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "sources": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "url": {
+                              "type": "string",
+                              "format": "uri"
+                            },
+                            "publisher": {
+                              "type": "string"
+                            },
+                            "title": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "url",
+                            "publisher",
+                            "title"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "basis",
+                      "version",
+                      "lastVerified",
+                      "sources"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "status",
+                "canonicalInternational",
+                "nationalNumber",
+                "nationalDisplay",
+                "internationalDisplay",
+                "extension",
+                "category",
+                "countryCandidates",
+                "checks",
+                "reasonCodes",
+                "requiredContext",
+                "transformations",
+                "evidenceIds"
+              ],
+              "additionalProperties": false
+            },
+            "issues": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "suggestedCorrection": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "suggestionReason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "requiredContext": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "unresolvedPossibilities": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "analysis",
+            "issues",
+            "suggestedCorrection",
+            "suggestionReason",
+            "requiredContext",
+            "unresolvedPossibilities"
+          ],
+          "additionalProperties": false
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "meta",
+        "result",
+        "limitations"
+      ],
+      "additionalProperties": false,
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    }
+  },
+  {
+    "name": "find_calling_windows",
+    "title": "Find calling windows",
+    "description": "Find overlapping working hours using explicit IANA time zones and dates. Handles overnight shifts and DST; never infers location from phone numbers or contacts participants.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "execution": {
+      "taskSupport": "forbidden"
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "type": "object",
+          "properties": {
+            "apiVersion": {
+              "type": "string"
+            },
+            "datasetVersion": {
+              "type": "string"
+            },
+            "numberingMetadataVersion": {
+              "type": "string"
+            },
+            "processing": {
+              "type": "string",
+              "const": "ephemeral"
+            },
+            "liveCarrierCheck": {
+              "type": "boolean",
+              "const": false
+            }
+          },
+          "required": [
+            "apiVersion",
+            "datasetVersion",
+            "numberingMetadataVersion",
+            "processing",
+            "liveCarrierCheck"
+          ],
+          "additionalProperties": false
+        },
+        "result": {
+          "type": "object",
+          "properties": {
+            "windows": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "startUtc": {
+                    "type": "string"
+                  },
+                  "endUtc": {
+                    "type": "string"
+                  },
+                  "durationMinutes": {
+                    "type": "number"
+                  },
+                  "participants": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "timeZone": {
+                          "type": "string"
+                        },
+                        "startLocal": {
+                          "type": "string"
+                        },
+                        "endLocal": {
+                          "type": "string"
+                        },
+                        "startOffsetMinutes": {
+                          "type": "number"
+                        },
+                        "endOffsetMinutes": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "timeZone",
+                        "startLocal",
+                        "endLocal",
+                        "startOffsetMinutes",
+                        "endOffsetMinutes"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "startUtc",
+                  "endUtc",
+                  "durationMinutes",
+                  "participants"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "truncated": {
+              "type": "boolean"
+            },
+            "policy": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "windows",
+            "truncated",
+            "policy"
+          ],
+          "additionalProperties": false
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "meta",
+        "result",
+        "limitations"
+      ],
+      "additionalProperties": false,
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    }
+  },
+  {
+    "name": "lookup_country_calling_code",
+    "title": "Lookup Country Calling Code",
+    "description": "Look up international country calling codes by free text, ISO code, dial code, or region. Optionally return reviewed, source-linked dialing examples. This tool does not verify live subscriber numbers.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "q": {
+          "type": "string",
+          "description": "Free-text search, such as \"United Kingdom\", \"London\", or \"AUS\"."
+        },
+        "code": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 or alpha-3 code, such as GB or GBR."
+        },
+        "dialCode": {
+          "type": "string",
+          "description": "Calling code with or without plus sign, such as +44 or 44."
+        },
+        "region": {
+          "type": "string",
+          "enum": [
+            "Africa",
+            "Americas",
+            "Asia",
+            "Europe",
+            "Oceania"
+          ],
+          "description": "Optional region filter."
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 250,
+          "description": "Maximum number of countries to return."
+        },
+        "includeExamples": {
+          "type": "boolean",
+          "description": "When true, include reviewed safe mobile/landline patterns, transformation rules, source URLs, and lastVerified metadata."
+        }
+      },
+      "additionalProperties": false,
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "execution": {
+      "taskSupport": "forbidden"
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "type": "object",
+          "additionalProperties": {}
+        },
+        "query": {
+          "type": "object",
+          "additionalProperties": {}
+        },
+        "countries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": {}
+          }
+        }
+      },
+      "required": [
+        "meta",
+        "query",
+        "countries"
+      ],
+      "additionalProperties": false,
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    }
+  },
+  {
+    "name": "format_international_phone_number",
+    "title": "Format International Phone Number",
+    "description": "Normalize a phone number into a plausible international format using reviewed country-specific rules. Processing is ephemeral. This tool does not query carriers, HLR/HSS, MNP databases, or live subscribers.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "phoneNumber": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "description": "Phone number to format. It is processed ephemerally and is not stored."
+        },
+        "countryCode": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2,
+          "description": "Optional ISO 3166-1 alpha-2 country context, such as GB."
+        }
+      },
+      "required": [
+        "phoneNumber"
+      ],
+      "additionalProperties": false,
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "execution": {
+      "taskSupport": "forbidden"
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "type": "object",
+          "additionalProperties": {}
+        },
+        "result": {
+          "type": "object",
+          "additionalProperties": {}
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "meta",
+        "result",
+        "limitations"
+      ],
+      "additionalProperties": false,
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    }
+  }
+]

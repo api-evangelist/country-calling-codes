@@ -1,0 +1,181 @@
+# Country Calling Codes
+
+> Source-linked international calling-code data, reviewed dialing walkthroughs,
+> country-pair examples, E.164 formatting guidance, and a read-only lookup API.
+
+Prefer the JSON API or hosted MCP tool for structured lookups. Use reviewed HTML
+guides and country pages when a user needs an attributable explanation. Static
+numbering-plan guidance does not prove that a phone number is allocated, active,
+reachable, owned, or consented for contact.
+
+## Best LLM Entry Points
+
+- [Full LLM guide](https://www.countrycalling.codes/llms-full.md)
+- [Guides hub](https://www.countrycalling.codes/guides)
+- [International dialing format](https://www.countrycalling.codes/guides/international-dialing-format)
+- [Phone number format for forms, CRM and SMS](https://www.countrycalling.codes/guides/phone-number-format-for-forms-crm-sms)
+- [Shared country codes](https://www.countrycalling.codes/guides/shared-country-codes)
+- [International toll-free calling](https://www.countrycalling.codes/guides/international-toll-free-calling)
+- [International call troubleshooting](https://www.countrycalling.codes/guides/international-call-troubleshooting)
+- [Avoid roaming charges](https://www.countrycalling.codes/guides/avoid-roaming-charges)
+- [Travel eSIM vs roaming vs local SIM](https://www.countrycalling.codes/guides/travel-esim-vs-roaming-vs-local-sim)
+- [Country dialing walkthroughs](https://www.countrycalling.codes/guides/country-dialing-walkthroughs)
+- [Phone number validation](https://www.countrycalling.codes/guides/phone-number-validation)
+- [Common formatting errors](https://www.countrycalling.codes/guides/common-phone-number-formatting-errors)
+- [Satellite and non-geographic codes](https://www.countrycalling.codes/guides/satellite-non-geographic-calling-codes)
+- [Call routing and number portability](https://www.countrycalling.codes/guides/call-routing-number-portability)
+- [Editorial methodology](https://www.countrycalling.codes/methodology)
+- [Private browser format checker](https://www.countrycalling.codes/tools/format-checker)
+- [Interactive developer documentation](https://www.countrycalling.codes/developers)
+- [Skill manifest](https://www.countrycalling.codes/skill.json)
+- [Official MCP Registry manifest](https://www.countrycalling.codes/server.json)
+- [Hosted MCP server](https://www.countrycalling.codes/api/mcp)
+- [OpenAPI tool schema](https://www.countrycalling.codes/api/calling-codes/openapi.json)
+- [Live API status](https://www.countrycalling.codes/api/calling-codes/status)
+- [Phone format API](https://www.countrycalling.codes/api/phone/format)
+- [Search API example](https://www.countrycalling.codes/api/calling-codes?q=united%20kingdom)
+- [Reviewed example data](https://www.countrycalling.codes/api/calling-codes?code=GB&include=examples)
+- [Direct lookup API](https://www.countrycalling.codes/api/calling-codes/gb)
+- [Dial-code lookup](https://www.countrycalling.codes/api/calling-codes?dialCode=44)
+- [Region filter](https://www.countrycalling.codes/api/calling-codes?region=Europe)
+- [Sitemap](https://www.countrycalling.codes/sitemap.xml)
+- [Robots](https://www.countrycalling.codes/robots.txt)
+
+## Formatting Facts
+
+- An international E.164 number combines a country calling code with the
+  destination national significant number and contains at most 15 digits.
+- The plus sign signifies the international prefix in written notation. It is
+  not itself a country code or an E.164 digit.
+- An exit prefix such as 00, 010, 011, or 0011 belongs to the origin dial
+  string, not the stored destination number.
+- Country-pair walkthroughs show both the portable + format and the digits-only
+  dial string for a specific origin. Carrier-selection codes remain origin
+  routing instructions rather than part of the saved destination number.
+- A leading zero is country-specific. It is removed in many plans but retained
+  on Italian geographic numbers.
+- Spaces and punctuation are display characters. Store extensions separately.
+- Use X placeholders in published patterns unless a reserved example number is
+  explicitly identified.
+- Forms and CRMs should preserve original input, use explicit country context,
+  normalize safely, store +digits only after parsing, and keep extensions separate.
+- A top-level code can be shared: later digits distinguish destinations inside
+  +1, +7, +39, +61, +262 and +599 in this directory.
+- National toll-free numbers are not necessarily reachable abroad. A UIFN uses
+  +800 plus eight digits, subject to subscriber and originating-network support.
+- Failed calls can originate in formatting, account permissions, carrier routes,
+  destination filtering, congestion, or VoIP signalling and media—not one layer.
+
+## Reviewed Country-Pair Pages
+
+- [Call the United Kingdom from the United States](https://www.countrycalling.codes/call/united-kingdom-from-united-states)
+- [Call the United States from the United Kingdom](https://www.countrycalling.codes/call/united-states-from-united-kingdom)
+- [Call Italy from Germany](https://www.countrycalling.codes/call/italy-from-germany)
+- [Call Singapore from Australia](https://www.countrycalling.codes/call/singapore-from-australia)
+- [Call Japan from Singapore](https://www.countrycalling.codes/call/japan-from-singapore)
+- [Call the United States from Brazil](https://www.countrycalling.codes/call/united-states-from-brazil)
+- [Call India from the United States](https://www.countrycalling.codes/call/india-from-united-states)
+- [Call Australia from the United States](https://www.countrycalling.codes/call/australia-from-united-states)
+- [Call Germany from the United States](https://www.countrycalling.codes/call/germany-from-united-states)
+- [Call India from the United Kingdom](https://www.countrycalling.codes/call/india-from-united-kingdom)
+- [Call the United Kingdom from Australia](https://www.countrycalling.codes/call/united-kingdom-from-australia)
+- [Call the United States from Japan](https://www.countrycalling.codes/call/united-states-from-japan)
+
+## API Summary
+
+GET /api/calling-codes
+
+Query parameters:
+- q: free text search across country name, official name, ISO codes, dial code,
+  capital, and area codes.
+- code: ISO 3166-1 alpha-2 or alpha-3 country code, such as GB or GBR.
+- dialCode: country calling code with or without "+", such as +44 or 44. This
+  field is not a complete phone number.
+- region: Africa, Americas, Asia, Europe, or Oceania.
+- limit: maximum number of returned countries.
+- include: set to examples to add reviewed dialingGuide content, source URLs,
+  safe mobile/landline patterns, exceptions, and lastVerified metadata. Omitted
+  by default to keep lookup payloads compact.
+
+GET /api/calling-codes/{lookup}
+
+Lookup may be an ISO alpha-2 code, ISO alpha-3 code, country slug, country name,
+or dial code. Dial codes can be passed as 44 or encoded as %2B44. Append
+?include=examples for reviewed guidance when available.
+
+GET /api/calling-codes/openapi.json
+
+OpenAPI 3.1 schema for generating a read-only LLM tool.
+
+GET /api/calling-codes/status
+
+Uncached live status, API version, dataset counts, and canonical endpoint links.
+The REST endpoints support cross-origin GET requests and return structured HTTP
+400 errors for invalid query parameters.
+
+POST /api/phone/format
+
+Accepts JSON with a required phoneNumber and optional two-letter countryCode.
+It applies the same reviewed formatter as the browser tool, processes the value
+ephemerally, never caches the response, and never represents the result as a
+carrier, HLR/HSS, MNP, allocation, reachability, ownership, or consent check.
+
+GET /skill.json
+
+Machine-readable skill manifest with guide, API, MCP, and OpenAPI entry points.
+
+POST /api/mcp
+
+Streamable HTTP MCP server exposing lookup_country_calling_code and
+format_international_phone_number. Set includeExamples=true to request the
+reviewed dialing guide. Phone-format input is processed ephemerally. A normal
+browser GET returns discovery and client-configuration JSON; MCP clients
+negotiate the Streamable HTTP transport at the same URL. The Registry-format
+manifest is at /server.json.
+
+## Enhanced workflows (API 1.4.0)
+
+GET /api/capabilities lists operation coverage, evidence and limits. The MCP server
+also offers analyze_phone_number, get_dialing_instructions, normalize_phone_numbers,
+compare_phone_numbers, resolve_phone_region, get_phone_input_rules,
+diagnose_dialing_problem, find_calling_windows, and get_phone_capabilities.
+See /developers#enhanced-api and /api/calling-codes/openapi.json for exact contracts.
+
+Number analysis uses versioned numbering metadata, separately labeled from the 13
+editorially reviewed country guides. Supply numberCountryCode for national input
+and originCountryCode for exit prefixes. Batches accept up to 100 uniquely identified
+items with per-record errors. POST bodies are limited to 64 KiB. Calling windows use
+explicit IANA time zones, local schedules and a date range of at most 31 days.
+MCP clients and third-party gateways may retain their own history even when our
+number processing is ephemeral. No operation verifies live subscribers.
+
+## Validation Boundaries
+
+Formatting/plausibility checks are not live verification. Carrier, MNP, or
+HLR/HSS results are provider-reported and time-sensitive. They do not prove
+identity, ownership, current ability to answer, or consent. When control matters,
+use a short-lived challenge and retain the result only for the defined purpose.
+
+## Public Pages
+
+- [Homepage](https://www.countrycalling.codes/)
+- [Directory](https://www.countrycalling.codes/directory)
+- [Guides](https://www.countrycalling.codes/guides)
+- [International dialing format](https://www.countrycalling.codes/guides/international-dialing-format)
+- [Phone number format for forms, CRM and SMS](https://www.countrycalling.codes/guides/phone-number-format-for-forms-crm-sms)
+- [Shared country codes](https://www.countrycalling.codes/guides/shared-country-codes)
+- [International toll-free calling](https://www.countrycalling.codes/guides/international-toll-free-calling)
+- [International call troubleshooting](https://www.countrycalling.codes/guides/international-call-troubleshooting)
+- [Avoid roaming charges](https://www.countrycalling.codes/guides/avoid-roaming-charges)
+- [Travel eSIM vs roaming vs local SIM](https://www.countrycalling.codes/guides/travel-esim-vs-roaming-vs-local-sim)
+- [Country dialing walkthroughs](https://www.countrycalling.codes/guides/country-dialing-walkthroughs)
+- [Phone number validation](https://www.countrycalling.codes/guides/phone-number-validation)
+- [Common formatting errors](https://www.countrycalling.codes/guides/common-phone-number-formatting-errors)
+- [Satellite and non-geographic codes](https://www.countrycalling.codes/guides/satellite-non-geographic-calling-codes)
+- [Call routing and number portability](https://www.countrycalling.codes/guides/call-routing-number-portability)
+- [Format checker](https://www.countrycalling.codes/tools/format-checker)
+- [Methodology](https://www.countrycalling.codes/methodology)
+- [Developer documentation](https://www.countrycalling.codes/developers)
+- Country detail template: `/country/{slug}`
+- [Privacy](https://www.countrycalling.codes/privacy)
+- [Contact](https://www.countrycalling.codes/contact)

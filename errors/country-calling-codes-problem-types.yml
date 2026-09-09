@@ -1,0 +1,51 @@
+generated: '2026-09-09'
+method: derived
+source: openapi/country-calling-codes-openapi.json (v1.4.0) 4xx/5xx responses + ErrorResponse schema
+format: json-envelope
+rfc9457: false
+envelope:
+  description: >-
+    Every error returns a JSON ErrorResponse object — not application/problem+json.
+    Required keys are error (with code and message) and documentation (a URI back to
+    the developer docs). Validation failures add error.details[], an array of
+    { field, message } records.
+  shape:
+    error:
+      code: string machine code (e.g. INVALID_REQUEST)
+      message: human-readable string
+      details: optional array of { field, message }
+    documentation: uri
+problems:
+  - status: 400
+    code: INVALID_REQUEST
+    title: Invalid request or duplicate parameters
+    remediation: >-
+      Check error.details[] for the offending field; queries reject unknown or
+      duplicated parameters rather than ignoring them.
+  - status: 404
+    title: No match found
+    applies_to: [lookup_country_calling_code_direct]
+    remediation: >-
+      The {lookup} segment (ISO alpha-2/alpha-3, slug, country name, or dial code)
+      matched no country or territory.
+  - status: 413
+    title: Body exceeds 64 KiB
+    applies_to: POST workflow endpoints
+    remediation: Keep JSON bodies under the published 65536-byte limit; batch at most 100 items.
+  - status: 415
+    title: Unsupported media type
+    applies_to: POST workflow endpoints
+    remediation: Send uncompressed application/json.
+  - status: 429
+    title: Hosting rate limit
+    remediation: >-
+      No application-level quota exists; the hosting platform may still throttle.
+      Honor Retry-After when present.
+  - status: 500
+    title: Operation could not be completed
+    remediation: Retry later; the status endpoint /api/calling-codes/status reports live health.
+notes: >-
+  Domain ambiguity (e.g. shared calling codes) and unsupported per-country coverage are
+  deliberately returned as structured 200 results, not errors — agents should inspect the
+  result body rather than relying on status codes for those outcomes. 304 is served on
+  metadata endpoints via If-None-Match/ETag.
