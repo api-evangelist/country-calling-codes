@@ -9,6 +9,13 @@ modified: '2026-09-09'
 specificationVersion: '0.21'
 image: https://www.countrycalling.codes/opengraph-image
 tags:
+  - Data
+  - Reference
+  - Telecom
+  - Phone
+  - OpenAPI
+  - MCP
+tags_raw:
   - data
   - reference
   - telecom
@@ -16,64 +23,159 @@ tags:
   - openapi
   - mcp
 apis:
-  - name: Country Calling Codes API
-    description: >-
-      Read-only JSON API for country calling code lookup, phone number formatting, analysis, batch normalization,
-      comparison, dialing guidance and capabilities. Includes a hosted Streamable HTTP MCP server, llms.txt, and agent
-      skill manifest.
-    humanURL: https://www.countrycalling.codes/developers
-    baseURL: https://www.countrycalling.codes
-    image: https://www.countrycalling.codes/opengraph-image
-    tags:
-      - data
-      - reference
-      - telecom
-      - phone
-      - openapi
-      - mcp
-    properties:
-      - type: OpenAPI
-        url: https://www.countrycalling.codes/api/calling-codes/openapi.json
-      - type: OpenAPI
-        url: openapi/country-calling-codes-openapi.json
-      - type: Documentation
-        url: https://www.countrycalling.codes/developers
-      - type: APIReference
-        url: https://www.countrycalling.codes/developers
-      - type: MCPServer
-        url: https://www.countrycalling.codes/api/mcp
-      - type: MCPServer
-        url: mcp/country-calling-codes-mcp.yml
-      - type: ToolCrosswalk
-        url: mcp/country-calling-codes-tool-crosswalk.yml
-      - type: LLMsTxt
-        url: https://www.countrycalling.codes/llms.txt
-      - type: LLMsTxt
-        url: llms/country-calling-codes-llms.txt
-      - type: AgentSkill
-        url: https://www.countrycalling.codes/skill.json
-      - type: AgentSkill
-        url: skills/country-calling-codes-skill.json
-      - type: Authentication
-        url: authentication/country-calling-codes-authentication.yml
-      - type: Conventions
-        url: conventions/country-calling-codes-conventions.yml
-      - type: ErrorCatalog
-        url: errors/country-calling-codes-problem-types.yml
-      - type: Lifecycle
-        url: lifecycle/country-calling-codes-lifecycle.yml
-      - type: Conformance
-        url: conformance/country-calling-codes-conformance.yml
-      - type: RateLimits
-        url: rate-limits/country-calling-codes-rate-limits.yml
-      - type: Plans
-        url: plans/country-calling-codes-plans-pricing.yml
-      - type: DataModel
-        url: data-model/country-calling-codes-data-model.yml
-      - type: Overlay
-        url: overlays/country-calling-codes-openapi-overlay.yaml
-      - type: StatusPage
-        url: https://www.countrycalling.codes/api/calling-codes/status
+- aid: country-calling-codes:country-calling-codes-calling-codes-api
+  name: Country Calling Codes Calling codes API
+  description: The Calling codes API from Country Calling Codes — 2 operation(s) for calling codes.
+  humanURL: https://www.countrycalling.codes/developers
+  baseURL: https://www.countrycalling.codes
+  tags:
+  - Calling codes
+  properties:
+  - type: OpenAPI
+    url: openapi/country-calling-codes-calling-codes-api-openapi.yml
+  - type: Documentation
+    url: https://www.countrycalling.codes/developers
+  - type: APIReference
+    url: https://www.countrycalling.codes/developers
+  - type: ToolCrosswalk
+    url: mcp/country-calling-codes-tool-crosswalk.yml
+  - type: LLMsTxt
+    url: https://www.countrycalling.codes/llms.txt
+  - type: LLMsTxt
+    url: llms/country-calling-codes-llms.txt
+  - type: Authentication
+    url: authentication/country-calling-codes-authentication.yml
+  - type: Conventions
+    url: conventions/country-calling-codes-conventions.yml
+  - type: ErrorCatalog
+    url: errors/country-calling-codes-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/country-calling-codes-lifecycle.yml
+  - type: Conformance
+    url: conformance/country-calling-codes-conformance.yml
+  - type: RateLimits
+    url: rate-limits/country-calling-codes-rate-limits.yml
+  - type: Plans
+    url: plans/country-calling-codes-plans-pricing.yml
+  - type: DataModel
+    url: data-model/country-calling-codes-data-model.yml
+  - type: StatusPage
+    url: https://www.countrycalling.codes/api/calling-codes/status
+- aid: country-calling-codes:country-calling-codes-phone-formatting-api
+  name: Country Calling Codes Phone formatting API
+  description: >-
+    The Phone formatting API from Country Calling Codes — 1 operation(s) for phone formatting.
+  humanURL: https://www.countrycalling.codes/developers
+  baseURL: https://www.countrycalling.codes
+  tags:
+  - Phone formatting
+  properties:
+  - type: OpenAPI
+    url: openapi/country-calling-codes-phone-formatting-api-openapi.yml
+  - type: Documentation
+    url: https://www.countrycalling.codes/developers
+  - type: APIReference
+    url: https://www.countrycalling.codes/developers
+  - type: ToolCrosswalk
+    url: mcp/country-calling-codes-tool-crosswalk.yml
+  - type: LLMsTxt
+    url: https://www.countrycalling.codes/llms.txt
+  - type: LLMsTxt
+    url: llms/country-calling-codes-llms.txt
+  - type: Authentication
+    url: authentication/country-calling-codes-authentication.yml
+  - type: Conventions
+    url: conventions/country-calling-codes-conventions.yml
+  - type: ErrorCatalog
+    url: errors/country-calling-codes-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/country-calling-codes-lifecycle.yml
+  - type: Conformance
+    url: conformance/country-calling-codes-conformance.yml
+  - type: RateLimits
+    url: rate-limits/country-calling-codes-rate-limits.yml
+  - type: Plans
+    url: plans/country-calling-codes-plans-pricing.yml
+  - type: DataModel
+    url: data-model/country-calling-codes-data-model.yml
+  - type: StatusPage
+    url: https://www.countrycalling.codes/api/calling-codes/status
+- aid: country-calling-codes:country-calling-codes-phone-workflows-api
+  name: Country Calling Codes Phone workflows API
+  description: The Phone workflows API from Country Calling Codes — 9 operation(s) for phone workflows.
+  humanURL: https://www.countrycalling.codes/developers
+  baseURL: https://www.countrycalling.codes
+  tags:
+  - Phone workflows
+  properties:
+  - type: OpenAPI
+    url: openapi/country-calling-codes-phone-workflows-api-openapi.yml
+  - type: Documentation
+    url: https://www.countrycalling.codes/developers
+  - type: APIReference
+    url: https://www.countrycalling.codes/developers
+  - type: ToolCrosswalk
+    url: mcp/country-calling-codes-tool-crosswalk.yml
+  - type: LLMsTxt
+    url: https://www.countrycalling.codes/llms.txt
+  - type: LLMsTxt
+    url: llms/country-calling-codes-llms.txt
+  - type: Authentication
+    url: authentication/country-calling-codes-authentication.yml
+  - type: Conventions
+    url: conventions/country-calling-codes-conventions.yml
+  - type: ErrorCatalog
+    url: errors/country-calling-codes-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/country-calling-codes-lifecycle.yml
+  - type: Conformance
+    url: conformance/country-calling-codes-conformance.yml
+  - type: RateLimits
+    url: rate-limits/country-calling-codes-rate-limits.yml
+  - type: Plans
+    url: plans/country-calling-codes-plans-pricing.yml
+  - type: DataModel
+    url: data-model/country-calling-codes-data-model.yml
+  - type: StatusPage
+    url: https://www.countrycalling.codes/api/calling-codes/status
+- aid: country-calling-codes:country-calling-codes-service-api
+  name: Country Calling Codes Service API
+  description: The Service API from Country Calling Codes — 1 operation(s) for service.
+  humanURL: https://www.countrycalling.codes/developers
+  baseURL: https://www.countrycalling.codes
+  tags:
+  - Service
+  properties:
+  - type: OpenAPI
+    url: openapi/country-calling-codes-service-api-openapi.yml
+  - type: Documentation
+    url: https://www.countrycalling.codes/developers
+  - type: APIReference
+    url: https://www.countrycalling.codes/developers
+  - type: ToolCrosswalk
+    url: mcp/country-calling-codes-tool-crosswalk.yml
+  - type: LLMsTxt
+    url: https://www.countrycalling.codes/llms.txt
+  - type: LLMsTxt
+    url: llms/country-calling-codes-llms.txt
+  - type: Authentication
+    url: authentication/country-calling-codes-authentication.yml
+  - type: Conventions
+    url: conventions/country-calling-codes-conventions.yml
+  - type: ErrorCatalog
+    url: errors/country-calling-codes-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/country-calling-codes-lifecycle.yml
+  - type: Conformance
+    url: conformance/country-calling-codes-conformance.yml
+  - type: RateLimits
+    url: rate-limits/country-calling-codes-rate-limits.yml
+  - type: Plans
+    url: plans/country-calling-codes-plans-pricing.yml
+  - type: DataModel
+    url: data-model/country-calling-codes-data-model.yml
+  - type: StatusPage
+    url: https://www.countrycalling.codes/api/calling-codes/status
 maintainers:
   - FN: Kajdep
     email: hello@countrycalling.codes
@@ -84,6 +186,16 @@ generated:
   confidence: 97
   at: '2026-09-08T12:26:26.861Z'
 common:
+- type: MCPServer
+  url: https://www.countrycalling.codes/api/mcp
+- type: MCPServer
+  url: mcp/country-calling-codes-mcp.yml
+- type: AgentSkill
+  url: https://www.countrycalling.codes/skill.json
+- type: AgentSkill
+  url: skills/country-calling-codes-skill.json
+- type: Overlay
+  url: overlays/country-calling-codes-openapi-overlay.yaml
 - type: Website
   url: https://www.countrycalling.codes
 - type: VulnerabilityDisclosure
