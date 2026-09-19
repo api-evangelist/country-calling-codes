@@ -144,6 +144,8 @@ apis:
   humanURL: https://www.countrycalling.codes/developers
   baseURL: https://www.countrycalling.codes
   tags:
+  - Services
+  tags_raw:
   - Service
   properties:
   - type: OpenAPI
