@@ -1,0 +1,25 @@
+# Front Door AI Index — country-calling-codes — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: country-calling-codes
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.countrycalling.codes
+  final_host: www.countrycalling.codes
+  ownership: own
+  owner: country-calling-codes
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 1
+  host_score: 1
+  density: 1.34
+  words: 745
+  tiers:
+    agentic: 1
+    core: 0
+    model: 0
+  ambiguous: 0
+  top_terms:
+    MCP: 1

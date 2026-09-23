@@ -1,0 +1,26 @@
+{
+  "provider": "country-calling-codes",
+  "sources": [
+    "_original/country-calling-codes-openapi.json"
+  ],
+  "outputs": [
+    "country-calling-codes-calling-codes-api-openapi.yml",
+    "country-calling-codes-phone-formatting-api-openapi.yml",
+    "country-calling-codes-phone-workflows-api-openapi.yml",
+    "country-calling-codes-service-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "country-calling-codes-openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "country-calling-codes-calling-codes-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "country-calling-codes-phone-formatting-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "country-calling-codes-phone-workflows-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "country-calling-codes-service-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

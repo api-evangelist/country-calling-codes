@@ -1,0 +1,392 @@
+openapi: 3.2.0
+info:
+  title: Country Calling codes API
+  version: 1.4.0
+  description: Public read-only API for country calling codes, phone analysis, batch normalization, comparison, dialing guidance, input rules, and calling windows. Requests and responses use JSON. No authentication is required. Numbering metadata and reviewed evidence are distinct; neither establishes subscriber activity, reachability, ownership, or consent.
+  contact:
+    name: countrycalling.codes
+    url: https://www.countrycalling.codes/contact
+servers:
+- url: https://www.countrycalling.codes
+  description: Production
+security: []
+tags:
+- name: Calling codes
+paths:
+  /api/calling-codes:
+    get:
+      tags:
+      - Calling codes
+      operationId: lookup_country_calling_code
+      summary: Search and filter country calling codes
+      description: Search by natural language or filter by ISO country code, calling code, region, and limit. Add include=examples only when reviewed formatting guidance is needed.
+      parameters:
+      - name: q
+        in: query
+        schema:
+          type: string
+        description: Free-text search across country name, official name, ISO codes, calling code, capital, and area codes.
+      - name: code
+        in: query
+        schema:
+          type: string
+        description: ISO 3166-1 alpha-2 or alpha-3 code, such as GB or GBR.
+      - name: dialCode
+        in: query
+        schema:
+          type: string
+        description: Country calling code with or without plus sign, such as +44 or 44. This is not a complete E.164 phone number.
+      - name: region
+        in: query
+        schema:
+          type: string
+          enum:
+          - Africa
+          - Americas
+          - Asia
+          - Europe
+          - Oceania
+        description: Region filter.
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 250
+        description: Maximum number of countries returned.
+      - name: include
+        in: query
+        schema:
+          type: string
+          enum:
+          - examples
+        description: Set to examples to include reviewed country dialingGuide content, safe display patterns, primary source URLs, and lastVerified metadata. Omitted by default.
+      responses:
+        '200':
+          description: Country calling-code results.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CallingCodesResponse'
+        '400':
+          description: One or more query parameters are invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/calling-codes/{lookup}:
+    get:
+      tags:
+      - Calling codes
+      operationId: lookup_country_calling_code_direct
+      summary: Direct country calling-code lookup
+      description: Lookup by ISO alpha-2, ISO alpha-3, country slug, exact country name, official name, or country calling code.
+      parameters:
+      - name: lookup
+        in: path
+        required: true
+        schema:
+          type: string
+        description: 'Examples: gb, gbr, united-kingdom, 44, or %2B44.'
+      - name: include
+        in: query
+        schema:
+          type: string
+          enum:
+          - examples
+        description: Set to examples to include reviewed country dialingGuide content, safe display patterns, primary source URLs, and lastVerified metadata. Omitted by default.
+      responses:
+        '200':
+          description: One or more matching country calling-code records.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DirectLookupResponse'
+        '400':
+          description: The lookup or include parameter is invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: No match found.
+components:
+  schemas:
+    SourceReference:
+      type: object
+      required:
+      - publisher
+      - title
+      - url
+      - lastVerified
+      properties:
+        publisher:
+          type: string
+        title:
+          type: string
+        url:
+          type: string
+          format: uri
+        publishedAt:
+          type: string
+          format: date
+        lastVerified:
+          type: string
+          format: date
+    CallingCodesResponse:
+      type: object
+      properties:
+        meta:
+          type: object
+          properties:
+            standard:
+              type: string
+            resultCount:
+              type: integer
+            includesDialingGuide:
+              type: boolean
+        query:
+          type: object
+        countries:
+          type: array
+          items:
+            $ref: '#/components/schemas/Country'
+    DialingPart:
+      type: object
+      required:
+      - value
+      - label
+      - meaning
+      properties:
+        value:
+          type: string
+        label:
+          type: string
+        meaning:
+          type: string
+    DirectLookupResponse:
+      type: object
+      properties:
+        meta:
+          type: object
+        lookup:
+          type: string
+        countries:
+          type: array
+          items:
+            $ref: '#/components/schemas/Country'
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      - documentation
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          properties:
+            code:
+              type: string
+              example: INVALID_REQUEST
+            message:
+              type: string
+            details:
+              type: array
+              items:
+                type: object
+                required:
+                - field
+                - message
+                properties:
+                  field:
+                    type: string
+                  message:
+                    type: string
+        documentation:
+          type: string
+          format: uri
+    DialingExample:
+      type: object
+      required:
+      - kind
+      - nationalDisplay
+      - internationalDisplay
+      - parts
+      - transformation
+      properties:
+        kind:
+          type: string
+          enum:
+          - mobile
+          - landline
+        nationalDisplay:
+          type: string
+          description: Safe domestic display pattern. X characters are placeholders.
+        internationalDisplay:
+          type: string
+          description: Safe international display pattern. It is not a dialable E.164 value when it contains X placeholders.
+        e164:
+          type: string
+          pattern: ^\+[1-9][0-9]{6,14}$
+          description: Optional digits-only E.164 example, included only when a safe reserved example is confirmed.
+        parts:
+          type: array
+          items:
+            $ref: '#/components/schemas/DialingPart'
+        transformation:
+          type: string
+        note:
+          type: string
+    DialingGuide:
+      type: object
+      required:
+      - status
+      - countryCode
+      - countryName
+      - dialCode
+      - answer
+      - trunkPrefixRule
+      - leadingZeroBehavior
+      - iddPrefix
+      - mobile
+      - landline
+      - mnpCaveat
+      - formattingExceptions
+      - commonMistakes
+      - reviewedBy
+      - lastVerified
+      - sources
+      properties:
+        status:
+          type: string
+          const: published
+        countryCode:
+          type: string
+        countryName:
+          type: string
+        dialCode:
+          type: string
+        answer:
+          type: string
+        trunkPrefixRule:
+          type: string
+        leadingZeroBehavior:
+          type: string
+          enum:
+          - drop
+          - retain
+          - none
+          - conditional
+        iddPrefix:
+          type: string
+          description: Origin-specific international direct dial prefix; not part of E.164.
+        alternateIddPrefixes:
+          type: array
+          items:
+            type: string
+        mobile:
+          $ref: '#/components/schemas/DialingExample'
+        landline:
+          $ref: '#/components/schemas/DialingExample'
+        carrierSelectionRule:
+          type: string
+        sharedPlanNotes:
+          type: string
+        territoryNotes:
+          type: string
+        mnpCaveat:
+          type: string
+        formattingExceptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/FormattingException'
+        commonMistakes:
+          type: array
+          items:
+            type: string
+        reviewedBy:
+          type: string
+        lastVerified:
+          type: string
+          format: date
+        sources:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/SourceReference'
+    Country:
+      type: object
+      required:
+      - name
+      - officialName
+      - code
+      - code3
+      - dialCode
+      - dialCodeNumeric
+      - region
+      - subregion
+      - capital
+      - flag
+      - slug
+      - url
+      properties:
+        name:
+          type: string
+        officialName:
+          type: string
+        code:
+          type: string
+          description: ISO 3166-1 alpha-2 code.
+        code3:
+          type: string
+          description: ISO 3166-1 alpha-3 code.
+        dialCode:
+          type: string
+          description: Country calling code such as +44. This is not a complete subscriber phone number.
+        dialCodeNumeric:
+          type: integer
+        region:
+          type: string
+          enum:
+          - Africa
+          - Americas
+          - Asia
+          - Europe
+          - Oceania
+        subregion:
+          type: string
+        capital:
+          type: string
+        flag:
+          type: string
+        trunkPrefix:
+          type: string
+          description: Domestic prefix metadata. Do not remove it without applying a reviewed country-specific rule.
+        areaCodes:
+          type: array
+          items:
+            type: string
+        notes:
+          type: string
+        dialingGuide:
+          $ref: '#/components/schemas/DialingGuide'
+        slug:
+          type: string
+        url:
+          type: string
+          format: uri
+    FormattingException:
+      type: object
+      required:
+      - title
+      - explanation
+      properties:
+        title:
+          type: string
+        explanation:
+          type: string
+externalDocs:
+  description: Interactive API and MCP documentation
+  url: https://www.countrycalling.codes/developers

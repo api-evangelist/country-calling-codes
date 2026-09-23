@@ -1,0 +1,154 @@
+openapi: 3.2.0
+info:
+  title: Country Calling Codes Phone formatting API
+  version: 1.4.0
+  description: Public read-only API for country calling codes, phone analysis, batch normalization, comparison, dialing guidance, input rules, and calling windows. Requests and responses use JSON. No authentication is required. Numbering metadata and reviewed evidence are distinct; neither establishes subscriber activity, reachability, ownership, or consent.
+  contact:
+    name: countrycalling.codes
+    url: https://www.countrycalling.codes/contact
+servers:
+- url: https://www.countrycalling.codes
+  description: Production
+security: []
+tags:
+- name: Phone formatting
+paths:
+  /api/phone/format:
+    post:
+      tags:
+      - Phone formatting
+      operationId: format_international_phone_number
+      summary: Format a phone number using reviewed country rules
+      description: Normalizes an international number or converts a national-format number when a supported two-letter country code is supplied. Processing is ephemeral. This is formatting and plausibility guidance, not a live carrier, HLR/HSS, MNP, ownership, reachability, or consent check.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PhoneFormatRequest'
+      responses:
+        '200':
+          description: Formatting or ambiguity result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhoneFormatResponse'
+        '400':
+          description: Invalid JSON, missing phone number, or unsupported country code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    PhoneFormatRequest:
+      type: object
+      required:
+      - phoneNumber
+      additionalProperties: false
+      properties:
+        phoneNumber:
+          type: string
+          minLength: 1
+          maxLength: 64
+          description: Number to format. The value is processed ephemerally and is not stored.
+          example: (020) 7946 0123
+        countryCode:
+          type: string
+          pattern: ^[A-Za-z]{2}$
+          description: Optional ISO 3166-1 alpha-2 context for national-format input.
+          example: GB
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      - documentation
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          properties:
+            code:
+              type: string
+              example: INVALID_REQUEST
+            message:
+              type: string
+            details:
+              type: array
+              items:
+                type: object
+                required:
+                - field
+                - message
+                properties:
+                  field:
+                    type: string
+                  message:
+                    type: string
+        documentation:
+          type: string
+          format: uri
+    PhoneFormatResponse:
+      type: object
+      required:
+      - meta
+      - input
+      - result
+      - limitations
+      properties:
+        meta:
+          type: object
+        input:
+          type: object
+        result:
+          type: object
+          required:
+          - status
+          - original
+          - normalizedCharacters
+          - extension
+          - probableCountry
+          - canonicalInternational
+          - warnings
+          - ambiguity
+          properties:
+            status:
+              type: string
+              enum:
+              - formatted
+              - needs-country
+              - ambiguous
+              - invalid
+            original:
+              type: string
+            normalizedCharacters:
+              type: string
+            extension:
+              type:
+              - string
+              - 'null'
+            probableCountry:
+              type:
+              - object
+              - 'null'
+            canonicalInternational:
+              type:
+              - string
+              - 'null'
+            warnings:
+              type: array
+              items:
+                type: string
+            ambiguity:
+              type:
+              - string
+              - 'null'
+        limitations:
+          type: array
+          items:
+            type: string
+externalDocs:
+  description: Interactive API and MCP documentation
+  url: https://www.countrycalling.codes/developers

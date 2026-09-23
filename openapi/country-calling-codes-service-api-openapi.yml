@@ -1,0 +1,57 @@
+openapi: 3.2.0
+info:
+  title: Country Calling Codes Service API
+  version: 1.4.0
+  description: Public read-only API for country calling codes, phone analysis, batch normalization, comparison, dialing guidance, input rules, and calling windows. Requests and responses use JSON. No authentication is required. Numbering metadata and reviewed evidence are distinct; neither establishes subscriber activity, reachability, ownership, or consent.
+  contact:
+    name: countrycalling.codes
+    url: https://www.countrycalling.codes/contact
+servers:
+- url: https://www.countrycalling.codes
+  description: Production
+security: []
+tags:
+- name: Service
+paths:
+  /api/calling-codes/status:
+    get:
+      tags:
+      - Service
+      operationId: get_calling_codes_api_status
+      summary: Get live API status
+      responses:
+        '200':
+          description: Live service version, timestamp, dataset counts and endpoint links.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
+components:
+  schemas:
+    StatusResponse:
+      type: object
+      required:
+      - status
+      - service
+      - version
+      - timestamp
+      - dataset
+      - endpoints
+      properties:
+        status:
+          type: string
+          const: ok
+        service:
+          type: string
+        version:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        dataset:
+          type: object
+        endpoints:
+          type: object
+externalDocs:
+  description: Interactive API and MCP documentation
+  url: https://www.countrycalling.codes/developers
