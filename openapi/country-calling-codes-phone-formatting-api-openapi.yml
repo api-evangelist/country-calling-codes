@@ -58,38 +58,6 @@ components:
           pattern: ^[A-Za-z]{2}$
           description: Optional ISO 3166-1 alpha-2 context for national-format input.
           example: GB
-    ErrorResponse:
-      type: object
-      required:
-      - error
-      - documentation
-      properties:
-        error:
-          type: object
-          required:
-          - code
-          - message
-          properties:
-            code:
-              type: string
-              example: INVALID_REQUEST
-            message:
-              type: string
-            details:
-              type: array
-              items:
-                type: object
-                required:
-                - field
-                - message
-                properties:
-                  field:
-                    type: string
-                  message:
-                    type: string
-        documentation:
-          type: string
-          format: uri
     PhoneFormatResponse:
       type: object
       required:
@@ -149,6 +117,38 @@ components:
           type: array
           items:
             type: string
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      - documentation
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          properties:
+            code:
+              type: string
+              example: INVALID_REQUEST
+            message:
+              type: string
+            details:
+              type: array
+              items:
+                type: object
+                required:
+                - field
+                - message
+                properties:
+                  field:
+                    type: string
+                  message:
+                    type: string
+        documentation:
+          type: string
+          format: uri
 externalDocs:
   description: Interactive API and MCP documentation
   url: https://www.countrycalling.codes/developers

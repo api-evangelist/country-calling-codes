@@ -112,133 +112,67 @@ paths:
           description: No match found.
 components:
   schemas:
-    SourceReference:
+    Country:
       type: object
       required:
-      - publisher
-      - title
+      - name
+      - officialName
+      - code
+      - code3
+      - dialCode
+      - dialCodeNumeric
+      - region
+      - subregion
+      - capital
+      - flag
+      - slug
       - url
-      - lastVerified
       properties:
-        publisher:
+        name:
           type: string
-        title:
+        officialName:
+          type: string
+        code:
+          type: string
+          description: ISO 3166-1 alpha-2 code.
+        code3:
+          type: string
+          description: ISO 3166-1 alpha-3 code.
+        dialCode:
+          type: string
+          description: Country calling code such as +44. This is not a complete subscriber phone number.
+        dialCodeNumeric:
+          type: integer
+        region:
+          type: string
+          enum:
+          - Africa
+          - Americas
+          - Asia
+          - Europe
+          - Oceania
+        subregion:
+          type: string
+        capital:
+          type: string
+        flag:
+          type: string
+        trunkPrefix:
+          type: string
+          description: Domestic prefix metadata. Do not remove it without applying a reviewed country-specific rule.
+        areaCodes:
+          type: array
+          items:
+            type: string
+        notes:
+          type: string
+        dialingGuide:
+          $ref: '#/components/schemas/DialingGuide'
+        slug:
           type: string
         url:
           type: string
           format: uri
-        publishedAt:
-          type: string
-          format: date
-        lastVerified:
-          type: string
-          format: date
-    CallingCodesResponse:
-      type: object
-      properties:
-        meta:
-          type: object
-          properties:
-            standard:
-              type: string
-            resultCount:
-              type: integer
-            includesDialingGuide:
-              type: boolean
-        query:
-          type: object
-        countries:
-          type: array
-          items:
-            $ref: '#/components/schemas/Country'
-    DialingPart:
-      type: object
-      required:
-      - value
-      - label
-      - meaning
-      properties:
-        value:
-          type: string
-        label:
-          type: string
-        meaning:
-          type: string
-    DirectLookupResponse:
-      type: object
-      properties:
-        meta:
-          type: object
-        lookup:
-          type: string
-        countries:
-          type: array
-          items:
-            $ref: '#/components/schemas/Country'
-    ErrorResponse:
-      type: object
-      required:
-      - error
-      - documentation
-      properties:
-        error:
-          type: object
-          required:
-          - code
-          - message
-          properties:
-            code:
-              type: string
-              example: INVALID_REQUEST
-            message:
-              type: string
-            details:
-              type: array
-              items:
-                type: object
-                required:
-                - field
-                - message
-                properties:
-                  field:
-                    type: string
-                  message:
-                    type: string
-        documentation:
-          type: string
-          format: uri
-    DialingExample:
-      type: object
-      required:
-      - kind
-      - nationalDisplay
-      - internationalDisplay
-      - parts
-      - transformation
-      properties:
-        kind:
-          type: string
-          enum:
-          - mobile
-          - landline
-        nationalDisplay:
-          type: string
-          description: Safe domestic display pattern. X characters are placeholders.
-        internationalDisplay:
-          type: string
-          description: Safe international display pattern. It is not a dialable E.164 value when it contains X placeholders.
-        e164:
-          type: string
-          pattern: ^\+[1-9][0-9]{6,14}$
-          description: Optional digits-only E.164 example, included only when a safe reserved example is confirmed.
-        parts:
-          type: array
-          items:
-            $ref: '#/components/schemas/DialingPart'
-        transformation:
-          type: string
-        note:
-          type: string
     DialingGuide:
       type: object
       required:
@@ -316,67 +250,70 @@ components:
           minItems: 1
           items:
             $ref: '#/components/schemas/SourceReference'
-    Country:
+    SourceReference:
       type: object
       required:
-      - name
-      - officialName
-      - code
-      - code3
-      - dialCode
-      - dialCodeNumeric
-      - region
-      - subregion
-      - capital
-      - flag
-      - slug
+      - publisher
+      - title
       - url
+      - lastVerified
       properties:
-        name:
+        publisher:
           type: string
-        officialName:
-          type: string
-        code:
-          type: string
-          description: ISO 3166-1 alpha-2 code.
-        code3:
-          type: string
-          description: ISO 3166-1 alpha-3 code.
-        dialCode:
-          type: string
-          description: Country calling code such as +44. This is not a complete subscriber phone number.
-        dialCodeNumeric:
-          type: integer
-        region:
-          type: string
-          enum:
-          - Africa
-          - Americas
-          - Asia
-          - Europe
-          - Oceania
-        subregion:
-          type: string
-        capital:
-          type: string
-        flag:
-          type: string
-        trunkPrefix:
-          type: string
-          description: Domestic prefix metadata. Do not remove it without applying a reviewed country-specific rule.
-        areaCodes:
-          type: array
-          items:
-            type: string
-        notes:
-          type: string
-        dialingGuide:
-          $ref: '#/components/schemas/DialingGuide'
-        slug:
+        title:
           type: string
         url:
           type: string
           format: uri
+        publishedAt:
+          type: string
+          format: date
+        lastVerified:
+          type: string
+          format: date
+    DirectLookupResponse:
+      type: object
+      properties:
+        meta:
+          type: object
+        lookup:
+          type: string
+        countries:
+          type: array
+          items:
+            $ref: '#/components/schemas/Country'
+    DialingExample:
+      type: object
+      required:
+      - kind
+      - nationalDisplay
+      - internationalDisplay
+      - parts
+      - transformation
+      properties:
+        kind:
+          type: string
+          enum:
+          - mobile
+          - landline
+        nationalDisplay:
+          type: string
+          description: Safe domestic display pattern. X characters are placeholders.
+        internationalDisplay:
+          type: string
+          description: Safe international display pattern. It is not a dialable E.164 value when it contains X placeholders.
+        e164:
+          type: string
+          pattern: ^\+[1-9][0-9]{6,14}$
+          description: Optional digits-only E.164 example, included only when a safe reserved example is confirmed.
+        parts:
+          type: array
+          items:
+            $ref: '#/components/schemas/DialingPart'
+        transformation:
+          type: string
+        note:
+          type: string
     FormattingException:
       type: object
       required:
@@ -386,6 +323,69 @@ components:
         title:
           type: string
         explanation:
+          type: string
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      - documentation
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          properties:
+            code:
+              type: string
+              example: INVALID_REQUEST
+            message:
+              type: string
+            details:
+              type: array
+              items:
+                type: object
+                required:
+                - field
+                - message
+                properties:
+                  field:
+                    type: string
+                  message:
+                    type: string
+        documentation:
+          type: string
+          format: uri
+    CallingCodesResponse:
+      type: object
+      properties:
+        meta:
+          type: object
+          properties:
+            standard:
+              type: string
+            resultCount:
+              type: integer
+            includesDialingGuide:
+              type: boolean
+        query:
+          type: object
+        countries:
+          type: array
+          items:
+            $ref: '#/components/schemas/Country'
+    DialingPart:
+      type: object
+      required:
+      - value
+      - label
+      - meaning
+      properties:
+        value:
+          type: string
+        label:
+          type: string
+        meaning:
           type: string
 externalDocs:
   description: Interactive API and MCP documentation

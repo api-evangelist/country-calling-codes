@@ -11,7 +11,7 @@ image: https://www.countrycalling.codes/opengraph-image
 tags:
   - Data
   - Reference
-  - Telecom
+  - Telecommunications
   - Phone
   - OpenAPI
   - MCP
@@ -22,12 +22,12 @@ tags_raw:
   - phone
   - openapi
   - mcp
+  - Telecom
 apis:
 - aid: country-calling-codes:country-calling-codes-calling-codes-api
   name: Country Calling Codes Calling codes API
   description: The Calling codes API from Country Calling Codes — 2 operation(s) for calling codes.
   humanURL: https://www.countrycalling.codes/developers
-  baseURL: https://www.countrycalling.codes
   tags:
   - Calling codes
   properties:
@@ -66,7 +66,6 @@ apis:
   description: >-
     The Phone formatting API from Country Calling Codes — 1 operation(s) for phone formatting.
   humanURL: https://www.countrycalling.codes/developers
-  baseURL: https://www.countrycalling.codes
   tags:
   - Phone formatting
   properties:
@@ -104,7 +103,6 @@ apis:
   name: Country Calling Codes Phone workflows API
   description: The Phone workflows API from Country Calling Codes — 9 operation(s) for phone workflows.
   humanURL: https://www.countrycalling.codes/developers
-  baseURL: https://www.countrycalling.codes
   tags:
   - Phone workflows
   properties:
@@ -142,7 +140,6 @@ apis:
   name: Country Calling Codes Service API
   description: The Service API from Country Calling Codes — 1 operation(s) for service.
   humanURL: https://www.countrycalling.codes/developers
-  baseURL: https://www.countrycalling.codes
   tags:
   - Services
   tags_raw:
