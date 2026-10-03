@@ -41,23 +41,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    PhoneFormatRequest:
-      type: object
-      required:
-      - phoneNumber
-      additionalProperties: false
-      properties:
-        phoneNumber:
-          type: string
-          minLength: 1
-          maxLength: 64
-          description: Number to format. The value is processed ephemerally and is not stored.
-          example: (020) 7946 0123
-        countryCode:
-          type: string
-          pattern: ^[A-Za-z]{2}$
-          description: Optional ISO 3166-1 alpha-2 context for national-format input.
-          example: GB
     PhoneFormatResponse:
       type: object
       required:
@@ -149,6 +132,23 @@ components:
         documentation:
           type: string
           format: uri
+    PhoneFormatRequest:
+      type: object
+      required:
+      - phoneNumber
+      additionalProperties: false
+      properties:
+        phoneNumber:
+          type: string
+          minLength: 1
+          maxLength: 64
+          description: Number to format. The value is processed ephemerally and is not stored.
+          example: (020) 7946 0123
+        countryCode:
+          type: string
+          pattern: ^[A-Za-z]{2}$
+          description: Optional ISO 3166-1 alpha-2 context for national-format input.
+          example: GB
 externalDocs:
   description: Interactive API and MCP documentation
   url: https://www.countrycalling.codes/developers
