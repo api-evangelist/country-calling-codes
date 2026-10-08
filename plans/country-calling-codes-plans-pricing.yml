@@ -23,3 +23,16 @@ notes: >-
   anonymous public reference API. Recorded as one free plan rather than plan_count: 0
   because the terms of access (free, no key, no quota) are genuinely published across
   the developer docs, capabilities endpoint, and MCP Registry manifest.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  units: []
+  plans:
+  - name: Public
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
