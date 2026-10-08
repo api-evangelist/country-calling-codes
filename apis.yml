@@ -185,6 +185,10 @@ generated:
   confidence: 97
   at: '2026-09-08T12:26:26.861Z'
 common:
+- type: Plans
+  url: plans/country-calling-codes-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/country-calling-codes-rate-limits.yml
 - type: MCPServer
   url: https://www.countrycalling.codes/api/mcp
 - type: MCPServer
