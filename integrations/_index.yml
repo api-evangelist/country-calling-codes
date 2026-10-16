@@ -19,6 +19,6 @@
     registered_name: io.github.Kajdep/countrycallingcodesmcp
     register_id: io.github.Kajdep/countrycallingcodesmcp
     detected_by: sweep-agent-tools.py
-    detected: '2026-10-14'
+    detected: '2026-10-15'
   status: not-a-workflow
   arazzo: null
