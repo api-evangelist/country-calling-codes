@@ -31,17 +31,42 @@ server:
     note: Official MCP Registry entry confirmed 2026-09-09; the registry copy is pinned at version 1.0.0
       while the live server and site manifest report 1.4.0.
 tools:
-- lookup_country_calling_code
-- format_international_phone_number
-- get_phone_capabilities
-- analyze_phone_number
-- get_dialing_instructions
-- normalize_phone_numbers
-- compare_phone_numbers
-- resolve_phone_region
-- get_phone_input_rules
-- diagnose_dialing_problem
-- find_calling_windows
+- name: get_phone_capabilities
+  description: Discover supported countries, per-operation review coverage, evidence, dataset versions
+    and request limits before choosing a phone workflow.
+- name: analyze_phone_number
+  description: Analyze a number using versioned numbering metadata. National numbers need numberCountryCode;
+    exit prefixes need originCountryCode. Reports uncertainty and rule evidence, never live subscriber
+    status.
+- name: get_dialing_instructions
+  description: Prepare origin-specific dialing guidance for reviewed countries. Provide origin and destination
+    separately; no phone number returns safe placeholder patterns. Network-dependent results remain conditional.
+- name: normalize_phone_numbers
+  description: Normalize up to 100 records with unique IDs. Invalid records produce individual errors.
+    Optionally identify canonical duplicate candidates; no contacts are changed or stored.
+- name: compare_phone_numbers
+  description: Compare two numbers after analysis. Missing context produces indeterminate. Extensions
+    must match unless extensionPolicy is explicitly ignore; equality does not establish ownership.
+- name: resolve_phone_region
+  description: Resolve a phone number to metadata-backed country candidates or non-geographic numbering.
+    Results are numbering assignments, not current location or carrier.
+- name: get_phone_input_rules
+  description: Get reviewed display placeholders and trunk-prefix guidance. Examples are not validation
+    masks. English fallback and unsupported editorial coverage are explicit.
+- name: diagnose_dialing_problem
+  description: Explain formatting issues and propose reviewed prefix repairs for confirmation. Uses the
+    same analyzer. Cannot determine why a network rejected a call.
+- name: find_calling_windows
+  description: Find overlapping working hours using explicit IANA time zones and dates. Handles overnight
+    shifts and DST; never infers location from phone numbers or contacts participants.
+- name: lookup_country_calling_code
+  description: Look up international country calling codes by free text, ISO code, dial code, or region.
+    Optionally return reviewed, source-linked dialing examples. This tool does not verify live subscriber
+    numbers.
+- name: format_international_phone_number
+  description: Normalize a phone number into a plausible international format using reviewed country-specific
+    rules. Processing is ephemeral. This tool does not query carriers, HLR/HSS, MNP databases, or live
+    subscribers.
 resources:
 - countrycalling://capabilities
 - countrycalling://coverage
@@ -79,3 +104,4 @@ tool_quality:
   scored: false
   note: Facts from the saved tools/list capture (mcp_tool_quality.py); recorded, not scored. Checks learned
     from Glimind's agent-readiness audit.
+tools_count: 11
