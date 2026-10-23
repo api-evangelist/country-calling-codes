@@ -2607,3 +2607,9 @@ components:
 externalDocs:
   description: Interactive API and MCP documentation
   url: https://www.countrycalling.codes/developers
+x-provenance:
+  method: harvested
+  publisher: Country Calling Codes
+  source: https://www.countrycalling.codes/api/calling-codes/openapi.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
