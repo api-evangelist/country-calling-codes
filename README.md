@@ -1,4 +1,4 @@
-# country-calling-codes
+# Country Calling Codes
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -65,3 +65,115 @@
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
 Public read-only reference API for ITU E.164 country calling codes, phone number formatting, batch normalization, comparison, dialing guidance, input rules, and calling windows. Ships a REST API, hosted MCP server, llms.txt, and agent skill manifest simultaneously. No authentication required.
+
+**Areas:** Data · Reference · Telecommunications · Phone · OpenAPI · MCP
+
+## Country Calling Codes on APIs.io
+
+Everything profiled for Country Calling Codes is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/country-calling-codes/](https://apis.io/providers/country-calling-codes/)** — or go straight to one of the APIs or properties below.
+
+### APIs (4)
+
+- [Country Calling Codes Calling codes API](https://apis.io/apis/country-calling-codes/country-calling-codes-calling-codes-api/) — The Calling codes API from Country Calling Codes — 2 operation(s) for calling codes.
+- [Country Calling Codes Phone formatting API](https://apis.io/apis/country-calling-codes/country-calling-codes-phone-formatting-api/) — The Phone formatting API from Country Calling Codes — 1 operation(s) for phone formatting.
+- [Country Calling Codes Phone workflows API](https://apis.io/apis/country-calling-codes/country-calling-codes-phone-workflows-api/) — The Phone workflows API from Country Calling Codes — 9 operation(s) for phone workflows.
+- [Country Calling Codes Service API](https://apis.io/apis/country-calling-codes/country-calling-codes-service-api/) — The Service API from Country Calling Codes — 1 operation(s) for service.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [mcp](https://apis.io/servers/country-calling-codes/mcp/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Country Calling Codes Openapi Overlay](https://apis.io/overlays/country-calling-codes/country-calling-codes-openapi-overlay/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Country Calling Codes Authentication](https://apis.io/security/country-calling-codes/country-calling-codes-authentication/)
+- [Country Calling Codes Domain Security](https://apis.io/security/country-calling-codes/country-calling-codes-domain-security/)
+- [Country Calling Codes Vulnerability Disclosure](https://apis.io/security/country-calling-codes/country-calling-codes-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Country Calling Codes Plans Pricing](https://apis.io/plans/country-calling-codes/country-calling-codes-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Country Calling Codes Rate Limits](https://apis.io/rate-limits/country-calling-codes/country-calling-codes-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.countrycalling.codes)
+- [Support](https://www.countrycalling.codes/contact)
+- [Privacy policy](https://www.countrycalling.codes/privacy)
+
+## API Evangelist rating
+
+**Kin Score 36.3** — thin · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.7 |
+| Contract quality | 46.5 |
+| Contract governance | 4.5 |
+| Operational transparency | 26.3 |
+| Developer ergonomics | 40.5 |
+| Access clarity | 31.6 |
+
+**Agent readiness 39.8** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | yes |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 22.5** — Telecommunications
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/country-calling-codes/](https://apis.io/providers/country-calling-codes/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Country Calling Codes: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/country-calling-codes/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
